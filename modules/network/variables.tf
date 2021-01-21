@@ -34,8 +34,3 @@ variable "edgeSubnet" {
 # You can modify these.
 # ---------------------------------------------------------------------------------------------------------------------
 
-variable "availability_domain" {
-  default = "1"
-}
-
-

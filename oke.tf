@@ -5,7 +5,6 @@ resource "oci_containerengine_cluster" "oke_airflow_cluster" {
   vcn_id             = var.useExistingVcn ? var.myVcn : module.network.vcn-id
 
   options {
-    service_lb_subnet_ids = [ var.useExistingVcn ? var.edgeSubnet : module.network.edge-id ]
     add_ons {
       is_kubernetes_dashboard_enabled = var.cluster_options_add_ons_is_kubernetes_dashboard_enabled
       is_tiller_enabled               = false # Default is false, left here for reference
