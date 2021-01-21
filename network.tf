@@ -14,18 +14,18 @@ locals {
 
 module "network" { 
   source = "./modules/network"
-  tenancy_ocid = "${var.tenancy_ocid}"
-  compartment_ocid = "${var.compartment_ocid}"
-  availability_domain = "${var.availability_domain}"
-  region = "${var.region}"
-  oci_service_gateway = "${local.oci_service_gateway}"
-  useExistingVcn = "${var.useExistingVcn}"
-  custom_cidrs = "${var.custom_cidrs}"
-  VCN_CIDR = "${var.VCN_CIDR}"
-  edge_cidr = "${var.edge_cidr}"
-  private_cidr = "${var.private_cidr}"
-  custom_vcn = ["${var.myVcn}"]
-  privateSubnet = "${var.privateSubnet}"
-  edgeSubnet = "${var.edgeSubnet}"
-  myVcn = "${var.myVcn}"
+  tenancy_ocid = var.tenancy_ocid
+  compartment_ocid = var.compartment_ocid
+  availability_domain = var.availability_domain
+  region = var.region
+  oci_service_gateway = local.oci_service_gateway
+  useExistingVcn = var.useExistingVcn
+  custom_cidrs = var.custom_cidrs
+  VCN_CIDR = var.VCN_CIDR
+  edge_cidr = var.edge_cidr
+  private_cidr = var.private_cidr
+  custom_vcn = [var.myVcn]
+  privateSubnet = var.privateSubnet
+  edgeSubnet = var.edgeSubnet
+  myVcn = var.myVcn
 }

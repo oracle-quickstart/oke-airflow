@@ -111,7 +111,6 @@ resource "oci_core_security_list" "PrivateSubnet" {
 
 resource "oci_core_subnet" "edge" {
   count = var.useExistingVcn ? 0 : 1
-  availability_domain = var.availability_domain
   cidr_block          = var.custom_cidrs ? var.edge_cidr : cidrsubnet(var.VCN_CIDR, 8, 1)
   display_name        = "edge"
   compartment_id      = var.compartment_ocid
@@ -124,7 +123,6 @@ resource "oci_core_subnet" "edge" {
 
 resource "oci_core_subnet" "private" {
   count = var.useExistingVcn ? 0 : 1
-  availability_domain = var.availability_domain
   cidr_block          = var.custom_cidrs ? var.private_cidr : cidrsubnet(var.VCN_CIDR, 8, 2)
   display_name        = "private"
   compartment_id      = var.compartment_ocid
