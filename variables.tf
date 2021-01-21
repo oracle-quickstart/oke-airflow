@@ -1,218 +1,122 @@
-#Variables declared in this file must be declared in the marketplace.yaml
-#Provide a description to your variables.
+# ---------------------------------------------------------------------------------------------------------------------
+# SSH Keys - Put this to top level because they are required
+# ---------------------------------------------------------------------------------------------------------------------
 
-############################
-#  Hidden Variable Group   #
-############################
-variable "tenancy_ocid" {
+variable "ssh_provided_key" {
+  default = ""
 }
 
-variable "region" {
+# ---------------------------------------------------------------------------------------------------------------------
+# Network Settings
+# --------------------------------------------------------------------------------------------------------------------- 
+variable "useExistingVcn" {
+  default = "false"
 }
-
-###############################################################################
-#  Marketplace Image Listing - information available in the Partner portal    #
-###############################################################################
-variable "mp_subscription_enabled" {
-  description = "Subscribe to Marketplace listing?"
-  type        = bool
-  default     = false
+variable "custom_cidrs" {
+  default = "false"
 }
-
-variable "mp_listing_id" {
-  // default = "ocid1.appcataloglisting.oc1.."
-  default     = ""
-  description = "Marketplace Listing OCID"
+variable "VCN_CIDR" {
+  default = "10.0.0.0/16"
 }
-
-variable "mp_listing_resource_id" {
-  // default = "ocid1.image.oc1.."
-  default     = ""
-  description = "Marketplace Listing Image OCID"
+variable "edge_cidr" {
+  default = "10.0.1.0/24"
 }
-
-variable "mp_listing_resource_version" {
-  // default = "1.0"
-  default     = ""
-  description = "Marketplace Listing Package/Resource Version"
+variable "private_cidr" {
+  default = "10.0.2.0/24"
 }
-
-############################
-#  Custom Image           #
-############################
-variable "custom_image_id" {
-  default     = "ocid1.image.oc1...."
-  description = "Custom Image OCID"
+variable "myVcn" {
+  default = " "
 }
-
-############################
-#  Compute Configuration   #
-############################
-
-variable "vm_display_name" {
-  description = "Instance Name"
-  default     = "simple-vm"
+variable "privateSubnet" {
+  default = " "
 }
-
-variable "vm_compute_shape" {
-  description = "Compute Shape"
-  default     = "VM.Standard2.2" //2 cores
+variable "edgeSubnet" {
+  default = " "
 }
-
-# only used for E3 Flex shape
-variable "vm_flex_shape_ocpus" {
-  description = "Flex Shape OCPUs"
+variable "vcn_dns_label" { 
+  default = "airflowvcn"
+}
+# Which AD to target - this can be adjusted.  Default 1 for single AD regions.
+variable "availability_domain" {
+  default = "1"
+}
+# ---------------------------------------------------------------------------------------------------------------------
+# ORM Schema variables
+# You should modify these based on deployment requirements.
+# These default to recommended values
+# --------------------------------------------------------------------------------------------------------------------- 
+variable "meta_db_type" {
+  default = "OCI Mysql"
+}
+variable "provide_ssh_key" {
+  default = "true"
+}
+variable "deploy_to_private_subnet" {
+  default = "true"
+}
+variable "create_new_oke_cluster" {
+  default = "true"
+}
+variable "kubernetes_version" {
+  default = "v1.18.10"
+}
+variable "image_operating_system" {
+  default = "Oracle Linux"
+}
+variable "image_operating_system_version" {
+  default = "7.8"
+}
+variable "webserver_node_pool_name" {
+  default = "Airflow-Webserver-Pool"
+}
+variable "webserver_node_pool_shape" {}
+variable "num_pool_webserver" {
   default = 1
 }
-
-variable "availability_domain_name" {
-  default     = ""
-  description = "Availability Domain name, if non-empty takes precedence over availability_domain_number"
+variable "scheduler_node_pool_name" {
+  default = "Airflow-Scheduler-Pool"
 }
-
-variable "availability_domain_number" {
-  default     = 1
-  description = "OCI Availability Domains: 1,2,3  (subject to region availability)"
+variable "scheduler_node_pool_shape" {}
+variable "num_pool_scheduler" {
+  default = 1
 }
-
-variable "ssh_public_key" {
-  description = "SSH Public Key"
+variable "worker_node_pool_name" {
+  default = "Airflow-Worker-Pool"
 }
-
-variable "hostname_label" {
-  default     = "simple"
-  description = "DNS Hostname Label. Must be unique across all VNICs in the subnet and comply with RFC 952 and RFC 1123."
+variable "worker_node_pool_shape" {}
+variable "num_pool_worker" {
+  default = 1
 }
-
-############################
-#  Network Configuration   #
-############################
-
-variable "network_strategy" {
-  #default = "Use Existing VCN and Subnet"
-  default = "Create New VCN and Subnet"
+variable "mq_node_pool_name" {
+  default = "Airflow-MQ-Pool"
 }
-
-variable "vcn_id" {
-  default = ""
+variable "mq_node_pool_shape" {}
+variable "num_pool_mq" {
+  default = 1
 }
-
-variable "vcn_display_name" {
-  description = "VCN Name"
-  default     = "simple-vcn"
+variable "cluster_options_add_ons_is_kubernetes_dashboard_enabled" {
+  default = true
 }
-
-variable "vcn_cidr_block" {
-  description = "VCN CIDR"
-  default     = "10.0.0.0/16"
+variable "cluster_options_add_ons_is_tiller_enabled" {
+  default = true
 }
-
-variable "vcn_dns_label" {
-  description = "VCN DNS Label"
-  default     = "simplevcn"
+variable "cluster_name" {}
+variable "cluster_options_admission_controller_options_is_pod_security_policy_enabled" {
+  description = "If true: The pod security policy admission controller will use pod security policies to restrict the pods accepted into the cluster."
+  default     = false
 }
-
-variable "subnet_type" {
-  description = "Choose between private and public subnets"
-  default     = "Public Subnet"
-  #or
-  #default     = "Private Subnet"
+variable "existing_oke_cluster_id" {
+  default = " "
 }
+# ---------------------------------------------------------------------------------------------------------------------
+# Environmental variables
+# You probably want to define these as environmental variables.
+# Instructions on that are here: https://github.com/oracle/oci-quickstart-prerequisites
+# ---------------------------------------------------------------------------------------------------------------------
 
-variable "subnet_id" {
-  default = ""
-}
+variable "compartment_ocid" {}
 
-variable "subnet_display_name" {
-  description = "Subnet Name"
-  default     = "simple-subnet"
-}
+# Required by the OCI Provider
 
-variable "subnet_cidr_block" {
-  description = "Subnet CIDR"
-  default     = "10.0.0.0/24"
-}
-
-variable "subnet_dns_label" {
-  description = "Subnet DNS Label"
-  default     = "simplesubnet"
-}
-
-############################
-# Security Configuration #
-############################
-variable "nsg_display_name" {
-  description = "Network Security Group Name"
-  default     = "simple-network-security-group"
-}
-
-variable "nsg_source_cidr" {
-  description = "Allowed Ingress Traffic (CIDR Block)"
-  default     = "0.0.0.0/0"
-}
-
-variable "nsg_ssh_port" {
-  description = "SSH Port"
-  default     = 22
-}
-
-variable "nsg_https_port" {
-  description = "HTTPS Port"
-  default     = 443
-}
-
-variable "nsg_http_port" {
-  description = "HTTP Port"
-  default     = 80
-}
-
-############################
-# Additional Configuration #
-############################
-
-variable "compute_compartment_ocid" {
-  description = "Compartment where Compute and Marketplace subscription resources will be created"
-}
-
-variable "network_compartment_ocid" {
-  description = "Compartment where Network resources will be created"
-}
-
-variable "tag_key_name" {
-  description = "Free-form tag key name"
-  default     = "oracle-quickstart"
-}
-
-variable "tag_value" {
-  description = "Free-form tag value"
-  default     = "oci-quickstart-template"
-}
-
-
-######################
-#    Enum Values     #
-######################
-variable "network_strategy_enum" {
-  type = map
-  default = {
-    CREATE_NEW_VCN_SUBNET   = "Create New VCN and Subnet"
-    USE_EXISTING_VCN_SUBNET = "Use Existing VCN and Subnet"
-  }
-}
-
-variable "subnet_type_enum" {
-  type = map
-  default = {
-    PRIVATE_SUBNET = "Private Subnet"
-    PUBLIC_SUBNET  = "Public Subnet"
-  }
-}
-
-variable "nsg_config_enum" {
-  type = map
-  default = {
-    BLOCK_ALL_PORTS = "Block all ports"
-    OPEN_ALL_PORTS  = "Open all ports"
-    CUSTOMIZE       = "Customize ports - Post deployment"
-  }
-}
+variable "tenancy_ocid" {}
+variable "region" {}

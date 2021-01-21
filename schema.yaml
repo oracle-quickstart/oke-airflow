@@ -1,0 +1,328 @@
+title: Airflow on OKE
+schemaVersion: 1.1.0
+version: "20210119"
+locale: "en"
+groupings:
+- title: "SSH Key"
+  variables:
+  - ${provide_ssh_key}
+  - ${ssh_provided_key}
+- title: "Availabilty Domain"
+  variables:
+  - ${availability_domain}
+- title: "VCN Options"
+  variables:
+  - ${useExistingVcn}
+  - ${myVcn}
+  - ${vcn_dns_label}
+  - ${custom_cidrs}
+  - ${VCN_CIDR}
+  - ${edge_cidr}
+  - ${private_cidr}
+- title: "OKE Cluster Options"
+  variables:
+  - ${create_new_oke_cluster}
+  - ${cluster_name}
+  - ${kubernetes_version}
+  - ${deploy_to_private_subnet}
+  - ${image_operating_system}
+- title: "OKE Webserver Pod Configuration"
+  variables:
+  - ${webserver_node_pool_name}
+  - ${webserver_node_pool_shape}
+  - ${num_pool_webserver}
+  visible: ${create_new_oke_cluster}
+- title: "OKE Scheduler Pod Configuration"
+  variables:
+  - ${scheduler_node_pool_name}
+  - ${scheduler_node_pool_shape}
+  - ${num_pool_scheduler}
+  visible: ${create_new_oke_cluster}
+- title: "OKE Worker Pod Configuration"
+  variables:
+  - ${worker_node_pool_name}
+  - ${worker_node_pool_shape}
+  - ${num_pool_worker}
+  visible: ${create_new_oke_cluster}
+- title: "OKE MQ Pod Configuration"
+  variables:
+  - ${mq_node_pool_name}
+  - ${mq_node_pool_shape}
+  - ${num_pool_mq}
+  visible: ${create_new_oke_cluster}
+- title: "Pre-Defined"
+  variables:
+  - ${region}
+  - ${compartment_ocid}
+  - ${tenancy_ocid}
+  - ${oci_service_gateway}
+  - ${AD}
+  - ${meta_db_type}
+  - ${image_operating_system_version}
+  - ${cluster_options_add_ons_is_kubernetes_dashboard_enabled}
+  - ${cluster_options_add_ons_is_tiller_enabled}
+  - ${cluster_options_admission_controller_options_is_pod_security_policy_enabled}
+  - ${existing_oke_cluster_id}
+  visible: false
+
+variables:
+  provide_ssh_key:
+    type: boolean
+    title: "Provide SSH Key"
+    description: "Un-Check to generate SSH key as part of deployment process.  This is NOT recommended for persistent environments, you should provide your own key for any production deployment."
+
+  ssh_provided_key:
+    type: string
+    title: "SSH Public Key"
+    description: "Copy/Paste the contents of your SSH Public Key"
+    required: true
+    default: ""
+    visible: ${provide_ssh_key}
+
+  create_new_oke_cluster:
+    type: boolean
+    title: "Create OKE Cluster"
+    description: "Check to deploy a new OKE cluster."
+    default: "true"
+
+  kubernetes_version:
+    type: enum
+    enum:
+    - "v1.18.10"
+    - "v1.17.13"
+    - "v1.17.9"
+    - "v1.16.15"
+    - "v1.16.8"
+    - "v1.15.12"
+    - "v1.15.7"
+    title: "Kubernetes Version"
+    description: "Choose the version of Kubernetes to deploy"
+    required: true
+    default: "v1.18.10"
+    visible: ${create_new_oke_cluster}
+
+  deploy_to_private_subnet:
+    type: boolean
+    title: "Deploy to Private Subnet"
+    description: "Deploy Airflow Pods to Private Subnet (Recommended).  Un-check if you want Airflow Pods to deploy to an edge subnet with Publicly accessible IPs (NOT Recommended)"
+    required: true
+    default: "true"
+    visible: ${create_new_oke_cluster}
+
+  cluster_name:
+    type: string
+    title: "OKE Cluster Name"
+    description: "Name the OKE Cluster"
+    required: "true"
+    default: "cluster1"
+    visible: ${create_new_oke_cluster}
+
+  useExistingVcn:
+    type: boolean
+    title: "Use Existing VCN"
+    description: "Click to use existing VCN, otherwise VCN and Subnets will be created"
+    required: true
+    default: false
+
+  myVcn:
+    type: oci:core:vcn:id
+    title: "Existing VCN"
+    description: "Select Existing VCN"
+    dependsOn:
+      compartmentId: ${compartment_ocid}
+    visible: ${useExistingVcn}
+    required: true
+
+  custom_cidrs:
+    type: boolean
+    title: "Customize Network CIDRS"
+    description: "Click to customize CIDR ranges, only applicable when creating VCN as part of deployment"
+    required: true
+    default: false
+    visible: 
+      not:
+        - eq: 
+          - true
+          - ${useExistingVcn}
+
+  privateSubnet:
+    type: oci:core:subnet:id
+    title: "Private Subnet"
+    description: "Select Subnet - Ensure the Subnet is in the same Availability Domain selected above"
+    dependsOn:
+      compartmentId: ${compartment_ocid}
+      vcnId: ${myVcn}
+    visible: ${useExistingVcn}
+    required: true
+
+  edgeSubnet:
+    type: oci:core:subnet:id
+    title: "Utility Subnet"
+    description: "Select Subnet - Ensure the Subnet is in the same Availability Domain selected above"
+    dependsOn:
+      compartmentId: ${compartment_ocid}
+      vcnId: ${myVcn}
+    visible: ${useExistingVcn}
+    required: true
+
+  availability_domain:
+    type: oci:identity:availabilitydomain:name
+    title: "Availability Domain"
+    description: "Select AD"
+    dependsOn:
+      compartmentId: ${compartment_ocid}
+    required: true
+
+  VCN_CIDR:
+    type: string
+    title: "VCN CIDR"
+    description: "Customize VCN top level CIDR"
+    visible: ${custom_cidrs}
+
+  edge_cidr:
+    type: string
+    title: "Edge Subnet CIDR"
+    description: "Customize Edge Subnet CIDR, ensure this fits in VCN CIDR range."
+    visible: ${custom_cidrs}
+
+  private_cidr:
+    type: string
+    title: "Private Subnet CIDR"
+    description: "Customize Private Subnet CIDR, ensure this fits in VCN CIDR range."
+    visible: ${custom_cidrs}
+
+  vcn_dns_label:
+    type: string
+    title: "VCN DNS Label"
+    description: "Set the VCN DNS label to be used when creating VCN.  Default is 'airflowvcn' which sets the VCN domain to 'airflowvcn.oraclevcn.com'"
+    visible:
+      not:
+        - eq:  
+          - true
+          - ${useExistingVcn}
+
+  meta_db_type:
+    type: enum
+    title: "Airflow Meta-Database"
+    description: "Pick which database to use for Airflow Metadata."
+    enum:
+    - "OCI Mysql"
+    required: true
+    visible: false
+
+  image_operating_system:
+    type: oci:core:image:id
+    title: "Image"
+    description: "Select the Image to use for OKE Pods"
+    required: true
+    dependsOn:
+      compartmentId: ${compartment_ocid}
+    visible: ${create_new_oke_cluster}
+    default: "Oracle-Linux-7.9-2021.01.12-0"
+
+  webserver_node_pool_name:
+    type: string
+    title: "Webserver Node Pool Name"
+    description: "Define the node pool name, no spaces"
+    required: true
+    visible: ${create_new_oke_cluster}
+
+  webserver_node_pool_shape:
+    type: oci:core:instanceshape:name
+    title: "Webserver Node Pool Shape"
+    description: "Define node pool shape"
+    required: true
+    visible: ${create_new_oke_cluster}
+    dependsOn:
+      compartmentId: ${compartment_ocid}
+    default: "VM.Standard2.1"
+
+  num_pool_webserver:
+    type: int
+    title: "Webserver pool size"
+    description: "Enter a value, minimum 1"
+    min: 1
+    default: 1
+    required: true
+    visible: ${create_new_oke_cluster}
+
+  scheduler_node_pool_name:
+    type: string
+    title: "Scheduler Node Pool Name"
+    description: "Define the node pool name, no spaces"
+    required: true
+    visible: ${create_new_oke_cluster}
+
+  scheduler_node_pool_shape:
+    type: oci:core:instanceshape:name
+    title: "Scheduler Node Pool Shape"
+    description: "Define node pool shape"
+    required: true
+    visible: ${create_new_oke_cluster}
+    dependsOn:
+      compartmentId: ${compartment_ocid}
+    default: "VM.Standard2.1"
+
+  num_pool_scheduler:
+    type: int
+    title: "Scheduler pool size"
+    description: "This should be set to 1."
+    min: 1
+    max: 1
+    default: 1
+    required: true
+    visible: ${create_new_oke_cluster}
+
+  worker_node_pool_name:
+    type: string
+    title: "Worker Node Pool Name"
+    description: "Define the node pool name, no spaces"
+    required: true
+    visible: ${create_new_oke_cluster}
+
+  worker_node_pool_shape:
+    type: oci:core:instanceshape:name
+    title: "Worker Node Pool Shape"
+    description: "Define node pool shape"
+    required: true
+    visible: ${create_new_oke_cluster}
+    dependsOn:
+      compartmentId: ${compartment_ocid}
+    default: "VM.Standard2.1"
+
+  num_pool_worker:
+    type: int
+    title: "Worker pool size"
+    description: "Enter a value, minimum 1"
+    min: 1
+    default: 1
+    required: true
+    visible: ${create_new_oke_cluster}
+
+  mq_node_pool_name:
+    type: string
+    title: "MQ Node Pool Name"
+    description: "Define the node pool name, no spaces"
+    required: true
+    visible: ${create_new_oke_cluster}
+
+  mq_node_pool_shape:
+    type: oci:core:instanceshape:name
+    title: "MQ Node Pool Shape"
+    description: "Define node pool shape"
+    required: true
+    visible: ${create_new_oke_cluster}
+    dependsOn:
+      compartmentId: ${compartment_ocid}
+    default: "VM.Standard2.1"
+
+  num_pool_mq:
+    type: int
+    title: "MQ pool size"
+    description: "Enter a value, minimum 1"
+    min: 1
+    default: 1
+    required: true
+    visible: ${create_new_oke_cluster}
+
+
