@@ -10,4 +10,4 @@ More documentation forthcoming.
 
 
 # Deployment Architecture
-![Deployment Architecture Diagram] (images/deployment_architecture.png)
+![Deployment Architecture Diagram](images/deployment_architecture.png)
