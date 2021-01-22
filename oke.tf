@@ -39,7 +39,7 @@ resource "oci_containerengine_node_pool" "airflow_webserver_node_pool" {
 
   node_source_details {
     source_type = "IMAGE"
-    image_id    = var.image_operating_system
+    image_id    = var.OELImageOCID[var.region]
   }
 
   initial_node_labels {
@@ -72,7 +72,7 @@ resource "oci_containerengine_node_pool" "airflow_scheduler_node_pool" {
 
   node_source_details {
     source_type = "IMAGE"
-    image_id    = var.image_operating_system
+    image_id    = var.OELImageOCID[var.region]
   }
 
   initial_node_labels {
@@ -105,7 +105,7 @@ resource "oci_containerengine_node_pool" "airflow_worker_node_pool" {
 
   node_source_details {
     source_type = "IMAGE"
-    image_id    = var.image_operating_system
+    image_id    = var.OELImageOCID[var.region]
   }
 
   initial_node_labels {
@@ -138,7 +138,7 @@ resource "oci_containerengine_node_pool" "airflow_mq_node_pool" {
 
   node_source_details {
     source_type = "IMAGE"
-    image_id    = var.image_operating_system
+    image_id    = var.OELImageOCID[var.region]
   }
 
   initial_node_labels {

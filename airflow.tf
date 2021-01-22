@@ -1,10 +1,10 @@
-# Create namespace airflow for the airflow microservices
-resource "kubernetes_namespace" "airflow_namespace" {
-  metadata {
-    name = "airflow"
-  }
-  depends_on = [oci_containerengine_node_pool.airflow_webserver_node_pool,oci_containerengine_node_pool.airflow_scheduler_node_pool,oci_containerengine_node_pool.airflow_worker_node_pool,oci_containerengine_node_pool.airflow_mq_node_pool]
-}
+## Create namespace airflow for the airflow microservices
+#resource "kubernetes_namespace" "airflow_namespace" {
+#  metadata {
+#    name = "airflow"
+#  }
+#  depends_on = [oci_containerengine_node_pool.airflow_webserver_node_pool,oci_containerengine_node_pool.airflow_scheduler_node_pool,oci_containerengine_node_pool.airflow_worker_node_pool,oci_containerengine_node_pool.airflow_mq_node_pool]
+#}
 
 # Deploy airflow chart
 #resource "helm_release" "airflow" {

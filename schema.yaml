@@ -25,7 +25,6 @@ groupings:
   - ${cluster_name}
   - ${kubernetes_version}
   - ${deploy_to_private_subnet}
-  - ${image_operating_system}
 - title: "OKE Webserver Pod Configuration"
   variables:
   - ${webserver_node_pool_name}
@@ -58,11 +57,11 @@ groupings:
   - ${oci_service_gateway}
   - ${AD}
   - ${meta_db_type}
-  - ${image_operating_system_version}
   - ${cluster_options_add_ons_is_kubernetes_dashboard_enabled}
   - ${cluster_options_add_ons_is_tiller_enabled}
   - ${cluster_options_admission_controller_options_is_pod_security_policy_enabled}
   - ${existing_oke_cluster_id}
+  - ${OELImageOCID}
   visible: false
 
 variables:
@@ -209,16 +208,6 @@ variables:
     - "OCI Mysql"
     required: true
     visible: false
-
-  image_operating_system:
-    type: oci:core:image:id
-    title: "Image"
-    description: "Select the Image to use for OKE Pods"
-    required: true
-    dependsOn:
-      compartmentId: ${compartment_ocid}
-    visible: ${create_new_oke_cluster}
-    default: "Oracle-Linux-7.9-2021.01.12-0"
 
   webserver_node_pool_name:
     type: string
