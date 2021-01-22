@@ -31,6 +31,15 @@ groupings:
   - ${airflow_node_pool_shape}
   - ${num_pool_airflow}
   visible: ${create_new_oke_cluster}
+- title: "OCI-MySQL Configuration"
+  variables:
+  - ${mysqladmin_username}
+  - ${mysqladmin_password}
+  - ${mysql_shape}
+  - ${oci_mysql_ip}
+  - ${enable_mysql_backups}
+- title: "OCI FSS Configuration"
+
 - title: "Pre-Defined"
   variables:
   - ${region}
@@ -216,4 +225,29 @@ variables:
     default: 1
     required: true
     visible: ${create_new_oke_cluster}
+
+  mysqladmin_username:
+    type: string
+    title: "OCI MySQL username"
+    description: "Enter a username for the MySQL database admin user"
+    default: "mysqladmin"
+    required: true
+
+  mysqladmin_password:
+    type: password
+    title: "OCI MySQL password"
+    description: "The password for the administrative user. The password must be between 8 and 32 characters long, and must contain at least 1 numeric character, 1 lowercase character, 1 uppercase character, and 1 special (nonalphanumeric) character."
+    required: true
+
+  oci_mysql_ip:
+    type: string
+    title: "OCI MySQL IP"
+    description: "Private IP Address for the OCI MySQL server listener.  The default uses the built-in VCN configuration when creating a private subnet, if using a custom VCN or changing the VCN/Subnet CIDRs you will need to adjust this accordingly to ensure it's in scope."
+    required: true
+
+  enable_mysql_backups:
+    type: boolean
+    title: "Enable MySQL backups"
+    description: "Enable MySQL backups for OCI MySQL database"
+    default: false
 

@@ -81,6 +81,21 @@ variable "cluster_options_admission_controller_options_is_pod_security_policy_en
 variable "existing_oke_cluster_id" {
   default = " "
 }
+variable "mysqladmin_password" {
+  default = ""
+}
+variable "mysqladmin_username" {
+  default = "mysqladmin"
+}
+variable "mysql_shape" {
+  default = "VM.Standard.E2.2"
+}
+variable "enable_mysql_backups" {
+  default = false
+}
+variable "oci_mysql_ip" {
+  default = "10.0.x.8"
+}
 # ---------------------------------------------------------------------------------------------------------------------
 # Environmental variables
 # You probably want to define these as environmental variables.
@@ -100,7 +115,7 @@ variable "region" {}
 // Kernel Version: 5.4.17-2036.100.6.1.el7uek.x86_64
 // Release Date: Nov. 13, 2020
 variable "OELImageOCID" {
-  type = "map"
+  type = map
   default = {
     ap-chuncheon-1 = "ocid1.image.oc1.ap-chuncheon-1.aaaaaaaaelfp7gtaodq3w6sq3s3dqwtgr7b2ofo6z5tkh6nsp6622xopmeja"
     ap-hyderabad-1 = "ocid1.image.oc1.ap-hyderabad-1.aaaaaaaav7gmok247t2jngmtyahgcktphcj5gin7bpyc2fjg3bzho47ws7ea"

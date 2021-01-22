@@ -1,4 +1,8 @@
 # Gets VCN ID
+data "oci_core_vcn" "vcn_info" {
+  vcn_id = var.useExistingVcn ? var.myVcn : module.network.vcn-id
+}
+
 # Gets a list of Availability Domains
 data "oci_identity_availability_domains" "ADs" {
   compartment_id = var.tenancy_ocid
