@@ -60,32 +60,11 @@ variable "create_new_oke_cluster" {
 variable "kubernetes_version" {
   default = "v1.18.10"
 }
-variable "webserver_node_pool_name" {
-  default = "Airflow-Webserver-Pool"
+variable "airflow_node_pool_name" {
+  default = "Airflow-Node-Pool"
 }
-variable "webserver_node_pool_shape" {}
-variable "num_pool_webserver" {
-  default = 1
-}
-variable "scheduler_node_pool_name" {
-  default = "Airflow-Scheduler-Pool"
-}
-variable "scheduler_node_pool_shape" {}
-variable "num_pool_scheduler" {
-  default = 1
-}
-variable "worker_node_pool_name" {
-  default = "Airflow-Worker-Pool"
-}
-variable "worker_node_pool_shape" {}
-variable "num_pool_worker" {
-  default = 1
-}
-variable "mq_node_pool_name" {
-  default = "Airflow-MQ-Pool"
-}
-variable "mq_node_pool_shape" {}
-variable "num_pool_mq" {
+variable "airflow_node_pool_shape" {}
+variable "num_pool_airflow" {
   default = 1
 }
 variable "cluster_options_add_ons_is_kubernetes_dashboard_enabled" {

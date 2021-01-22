@@ -25,29 +25,11 @@ groupings:
   - ${cluster_name}
   - ${kubernetes_version}
   - ${deploy_to_private_subnet}
-- title: "OKE Webserver Pod Configuration"
+- title: "OKE Airflow Pool Configuration"
   variables:
-  - ${webserver_node_pool_name}
-  - ${webserver_node_pool_shape}
-  - ${num_pool_webserver}
-  visible: ${create_new_oke_cluster}
-- title: "OKE Scheduler Pod Configuration"
-  variables:
-  - ${scheduler_node_pool_name}
-  - ${scheduler_node_pool_shape}
-  - ${num_pool_scheduler}
-  visible: ${create_new_oke_cluster}
-- title: "OKE Worker Pod Configuration"
-  variables:
-  - ${worker_node_pool_name}
-  - ${worker_node_pool_shape}
-  - ${num_pool_worker}
-  visible: ${create_new_oke_cluster}
-- title: "OKE MQ Pod Configuration"
-  variables:
-  - ${mq_node_pool_name}
-  - ${mq_node_pool_shape}
-  - ${num_pool_mq}
+  - ${airflow_node_pool_name}
+  - ${airflow_node_pool_shape}
+  - ${num_pool_airflow}
   visible: ${create_new_oke_cluster}
 - title: "Pre-Defined"
   variables:
@@ -209,16 +191,16 @@ variables:
     required: true
     visible: false
 
-  webserver_node_pool_name:
+  airflow_node_pool_name:
     type: string
-    title: "Webserver Node Pool Name"
+    title: "Airflow Node Pool Name"
     description: "Define the node pool name, no spaces"
     required: true
     visible: ${create_new_oke_cluster}
 
-  webserver_node_pool_shape:
+  airflow_node_pool_shape:
     type: oci:core:instanceshape:name
-    title: "Webserver Node Pool Shape"
+    title: "Airflow Node Pool Shape"
     description: "Define node pool shape"
     required: true
     visible: ${create_new_oke_cluster}
@@ -226,92 +208,12 @@ variables:
       compartmentId: ${compartment_ocid}
     default: "VM.Standard2.1"
 
-  num_pool_webserver:
+  num_pool_airflow:
     type: int
-    title: "Webserver pool size"
+    title: "Airflow Node Pool size"
     description: "Enter a value, minimum 1"
     min: 1
     default: 1
     required: true
     visible: ${create_new_oke_cluster}
-
-  scheduler_node_pool_name:
-    type: string
-    title: "Scheduler Node Pool Name"
-    description: "Define the node pool name, no spaces"
-    required: true
-    visible: ${create_new_oke_cluster}
-
-  scheduler_node_pool_shape:
-    type: oci:core:instanceshape:name
-    title: "Scheduler Node Pool Shape"
-    description: "Define node pool shape"
-    required: true
-    visible: ${create_new_oke_cluster}
-    dependsOn:
-      compartmentId: ${compartment_ocid}
-    default: "VM.Standard2.1"
-
-  num_pool_scheduler:
-    type: int
-    title: "Scheduler pool size"
-    description: "This should be set to 1."
-    min: 1
-    max: 1
-    default: 1
-    required: true
-    visible: ${create_new_oke_cluster}
-
-  worker_node_pool_name:
-    type: string
-    title: "Worker Node Pool Name"
-    description: "Define the node pool name, no spaces"
-    required: true
-    visible: ${create_new_oke_cluster}
-
-  worker_node_pool_shape:
-    type: oci:core:instanceshape:name
-    title: "Worker Node Pool Shape"
-    description: "Define node pool shape"
-    required: true
-    visible: ${create_new_oke_cluster}
-    dependsOn:
-      compartmentId: ${compartment_ocid}
-    default: "VM.Standard2.1"
-
-  num_pool_worker:
-    type: int
-    title: "Worker pool size"
-    description: "Enter a value, minimum 1"
-    min: 1
-    default: 1
-    required: true
-    visible: ${create_new_oke_cluster}
-
-  mq_node_pool_name:
-    type: string
-    title: "MQ Node Pool Name"
-    description: "Define the node pool name, no spaces"
-    required: true
-    visible: ${create_new_oke_cluster}
-
-  mq_node_pool_shape:
-    type: oci:core:instanceshape:name
-    title: "MQ Node Pool Shape"
-    description: "Define node pool shape"
-    required: true
-    visible: ${create_new_oke_cluster}
-    dependsOn:
-      compartmentId: ${compartment_ocid}
-    default: "VM.Standard2.1"
-
-  num_pool_mq:
-    type: int
-    title: "MQ pool size"
-    description: "Enter a value, minimum 1"
-    min: 1
-    default: 1
-    required: true
-    visible: ${create_new_oke_cluster}
-
 
