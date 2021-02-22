@@ -1,0 +1,1649 @@
+[31m
+[1m[31mError: [0m[0m[1mMissing newline after argument[0m
+
+[0m  on modules/airflow/main.tf line 219, in resource "null_resource" "build_docker_image":
+ 219:     content     = data.template_file.pod_template[4m"[0m.rendered
+[0m
+An argument definition must end with a newline.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 219, in resource "null_resource" "build_docker_image":
+ 219:     content     = data.template_file.pod_template".rendered
+ 220:     destination = "~/airflow/pod_template.yaml"
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mUnsupported operator[0m
+
+[0m  on modules/airflow/main.tf line 220, in resource "null_resource" "build_docker_image":
+ 220:     destination = "[4m~[0m/airflow/pod_template.yaml"
+[0m
+Bitwise operators are not supported. Did you mean boolean NOT ("!")?
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 220, in resource "null_resource" "build_docker_image":
+ 220:     destination = "~/airflow/pod_template.yaml"
+ 221:   }
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 221, in resource "null_resource" "build_docker_image":
+ 221:   }
+ 223:   provisioner "remote-exec" {
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 223, in resource "null_resource" "build_docker_image":
+ 223:   provisioner "remote-exec" {
+ 224:     inline = [
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 224, in resource "null_resource" "build_docker_image":
+ 224:     inline = [
+ 225:       "cd $HOME/airflow",
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid character[0m
+
+[0m  on modules/airflow/main.tf line 225, in resource "null_resource" "build_docker_image":
+ 225:       "cd [4m$[0mHOME/airflow",
+[0m
+This character is not used within the language.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 225, in resource "null_resource" "build_docker_image":
+ 225:       "cd $HOME/airflow",
+ 226:       "chmod +x build_docker_image.sh",
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 226, in resource "null_resource" "build_docker_image":
+ 226:       "chmod +x build_docker_image.sh",
+ 227:       "./build_docker_image.sh"
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 227, in resource "null_resource" "build_docker_image":
+ 227:       "./build_docker_image.sh"
+ 228:     ]
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 228, in resource "null_resource" "build_docker_image":
+ 228:     ]
+ 229:   }
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 229, in resource "null_resource" "build_docker_image":
+ 229:   }
+ 230: }
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 230, in resource "null_resource" "build_docker_image":
+ 230: }
+ 232: # Push airflow image to OCI registry
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 232, in resource "null_resource" "build_docker_image":
+ 232: # Push airflow image to OCI registry
+ 234: data "template_file" "push_to_registry" {
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 234, in resource "null_resource" "build_docker_image":
+ 234: data "template_file" "push_to_registry" {
+ 235:   template = file("${path.module}/../../userdata/push_to_registry.sh")
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid character[0m
+
+[0m  on modules/airflow/main.tf line 235, in resource "null_resource" "build_docker_image":
+ 235:   template = file("[4m$[0m{path.module}/../../userdata/push_to_registry.sh")
+[0m
+This character is not used within the language.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 235, in resource "null_resource" "build_docker_image":
+ 235:   template = file("${path.module}/../../userdata/push_to_registry.sh")
+ 236:   vars = {
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 236, in resource "null_resource" "build_docker_image":
+ 236:   vars = {
+ 237:     secret_id = var.secret_id,
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 237, in resource "null_resource" "build_docker_image":
+ 237:     secret_id = var.secret_id,
+ 238:     registry = var.registry
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 238, in resource "null_resource" "build_docker_image":
+ 238:     registry = var.registry
+ 239:     repo_name = var.repo_name
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 239, in resource "null_resource" "build_docker_image":
+ 239:     repo_name = var.repo_name
+ 240:     registry_user = var.registry_user
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 240, in resource "null_resource" "build_docker_image":
+ 240:     registry_user = var.registry_user
+ 241:     tenancy_name = data.oci_identity_tenancy.my_tenancy.name
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 241, in resource "null_resource" "build_docker_image":
+ 241:     tenancy_name = data.oci_identity_tenancy.my_tenancy.name
+ 242:     region = var.region
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 242, in resource "null_resource" "build_docker_image":
+ 242:     region = var.region
+ 243:     image_name = var.image_name
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 243, in resource "null_resource" "build_docker_image":
+ 243:     image_name = var.image_name
+ 244:     image_label = var.image_label
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 244, in resource "null_resource" "build_docker_image":
+ 244:     image_label = var.image_label
+ 245:   }
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 245, in resource "null_resource" "build_docker_image":
+ 245:   }
+ 246: }
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 246, in resource "null_resource" "build_docker_image":
+ 246: }
+ 248: resource "null_resource" "push_to_registry" {
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 248, in resource "null_resource" "build_docker_image":
+ 248: resource "null_resource" "push_to_registry" {
+ 249:   depends_on = [null_resource.build_docker_image]
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 249, in resource "null_resource" "build_docker_image":
+ 249:   depends_on = [null_resource.build_docker_image]
+ 251:   connection {
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 251, in resource "null_resource" "build_docker_image":
+ 251:   connection {
+ 252:     host        = var.instance_ip
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 252, in resource "null_resource" "build_docker_image":
+ 252:     host        = var.instance_ip
+ 253:     private_key = var.ssh_private_key
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 253, in resource "null_resource" "build_docker_image":
+ 253:     private_key = var.ssh_private_key
+ 254:     timeout     = "40m"
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 254, in resource "null_resource" "build_docker_image":
+ 254:     timeout     = "40m"
+ 255:     type        = "ssh"
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 255, in resource "null_resource" "build_docker_image":
+ 255:     type        = "ssh"
+ 256:     user        = "opc"
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 256, in resource "null_resource" "build_docker_image":
+ 256:     user        = "opc"
+ 257:   }
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 257, in resource "null_resource" "build_docker_image":
+ 257:   }
+ 259:   provisioner "file" {
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 259, in resource "null_resource" "build_docker_image":
+ 259:   provisioner "file" {
+ 260:     content     = data.template_file.push_to_registry.rendered
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 260, in resource "null_resource" "build_docker_image":
+ 260:     content     = data.template_file.push_to_registry.rendered
+ 261:     destination = "~/airflow/push_to_registry.sh"
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mUnsupported operator[0m
+
+[0m  on modules/airflow/main.tf line 261, in resource "null_resource" "build_docker_image":
+ 261:     destination = "[4m~[0m/airflow/push_to_registry.sh"
+[0m
+Bitwise operators are not supported. Did you mean boolean NOT ("!")?
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 261, in resource "null_resource" "build_docker_image":
+ 261:     destination = "~/airflow/push_to_registry.sh"
+ 262:   }
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 262, in resource "null_resource" "build_docker_image":
+ 262:   }
+ 264:   provisioner "remote-exec" {
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 264, in resource "null_resource" "build_docker_image":
+ 264:   provisioner "remote-exec" {
+ 265:     inline = [
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 265, in resource "null_resource" "build_docker_image":
+ 265:     inline = [
+ 266:       "cd $HOME/airflow",
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid character[0m
+
+[0m  on modules/airflow/main.tf line 266, in resource "null_resource" "build_docker_image":
+ 266:       "cd [4m$[0mHOME/airflow",
+[0m
+This character is not used within the language.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 266, in resource "null_resource" "build_docker_image":
+ 266:       "cd $HOME/airflow",
+ 267:       "chmod +x push_to_registry.sh",
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 267, in resource "null_resource" "build_docker_image":
+ 267:       "chmod +x push_to_registry.sh",
+ 268:       "./push_to_registry.sh"
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 268, in resource "null_resource" "build_docker_image":
+ 268:       "./push_to_registry.sh"
+ 269:     ]
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 269, in resource "null_resource" "build_docker_image":
+ 269:     ]
+ 270:   }
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 270, in resource "null_resource" "build_docker_image":
+ 270:   }
+ 271: }
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 271, in resource "null_resource" "build_docker_image":
+ 271: }
+ 274: # Deploy airflow containers on OKE
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 274, in resource "null_resource" "build_docker_image":
+ 274: # Deploy airflow containers on OKE
+ 276: data "template_file" "deploy_airflow" {
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 276, in resource "null_resource" "build_docker_image":
+ 276: data "template_file" "deploy_airflow" {
+ 277:   template = file("${path.module}/../../userdata/deploy_airflow.sh")
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid character[0m
+
+[0m  on modules/airflow/main.tf line 277, in resource "null_resource" "build_docker_image":
+ 277:   template = file("[4m$[0m{path.module}/../../userdata/deploy_airflow.sh")
+[0m
+This character is not used within the language.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 277, in resource "null_resource" "build_docker_image":
+ 277:   template = file("${path.module}/../../userdata/deploy_airflow.sh")
+ 278:   vars = {
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 278, in resource "null_resource" "build_docker_image":
+ 278:   vars = {
+ 279:     secret_id = var.secret_id,
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 279, in resource "null_resource" "build_docker_image":
+ 279:     secret_id = var.secret_id,
+ 280:     registry = var. registry
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 280, in resource "null_resource" "build_docker_image":
+ 280:     registry = var. registry
+ 281:     repo_name = var.repo_name
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 281, in resource "null_resource" "build_docker_image":
+ 281:     repo_name = var.repo_name
+ 282:     registry_user = var.registry_user
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 282, in resource "null_resource" "build_docker_image":
+ 282:     registry_user = var.registry_user
+ 283:     tenancy_name = data.oci_identity_tenancy.my_tenancy.name
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 283, in resource "null_resource" "build_docker_image":
+ 283:     tenancy_name = data.oci_identity_tenancy.my_tenancy.name
+ 284:     region = var.region
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 284, in resource "null_resource" "build_docker_image":
+ 284:     region = var.region
+ 285:     image_name = var.image_name
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 285, in resource "null_resource" "build_docker_image":
+ 285:     image_name = var.image_name
+ 286:     image_label = var.image_label
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 286, in resource "null_resource" "build_docker_image":
+ 286:     image_label = var.image_label
+ 287:     namespace = var.namespace
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 287, in resource "null_resource" "build_docker_image":
+ 287:     namespace = var.namespace
+ 288:     mount_target_id = var.mount_target_id
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 288, in resource "null_resource" "build_docker_image":
+ 288:     mount_target_id = var.mount_target_id
+ 289:     nfs_ip = var.nfs_ip
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 289, in resource "null_resource" "build_docker_image":
+ 289:     nfs_ip = var.nfs_ip
+ 290:   }
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 290, in resource "null_resource" "build_docker_image":
+ 290:   }
+ 291: }
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 291, in resource "null_resource" "build_docker_image":
+ 291: }
+ 293: data "template_file" "volumes_template" {
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 293, in resource "null_resource" "build_docker_image":
+ 293: data "template_file" "volumes_template" {
+ 294:   template = file("${path.module}/../../userdata/templates/volumes.yaml.template")
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid character[0m
+
+[0m  on modules/airflow/main.tf line 294, in resource "null_resource" "build_docker_image":
+ 294:   template = file("[4m$[0m{path.module}/../../userdata/templates/volumes.yaml.template")
+[0m
+This character is not used within the language.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 294, in resource "null_resource" "build_docker_image":
+ 294:   template = file("${path.module}/../../userdata/templates/volumes.yaml.template")
+ 295:   vars = {
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 295, in resource "null_resource" "build_docker_image":
+ 295:   vars = {
+ 296:     MNT_TARGET_ID = var.mount_target_id
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 296, in resource "null_resource" "build_docker_image":
+ 296:     MNT_TARGET_ID = var.mount_target_id
+ 297:     NFS_IP = var.nfs_ip
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 297, in resource "null_resource" "build_docker_image":
+ 297:     NFS_IP = var.nfs_ip
+ 298:   }
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 298, in resource "null_resource" "build_docker_image":
+ 298:   }
+ 299: }
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 299, in resource "null_resource" "build_docker_image":
+ 299: }
+ 301: data "template_file" "configmap_template" {
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 301, in resource "null_resource" "build_docker_image":
+ 301: data "template_file" "configmap_template" {
+ 302:   template = file("${path.module}/../../userdata/templates/configmap.yaml.template")
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid character[0m
+
+[0m  on modules/airflow/main.tf line 302, in resource "null_resource" "build_docker_image":
+ 302:   template = file("[4m$[0m{path.module}/../../userdata/templates/configmap.yaml.template")
+[0m
+This character is not used within the language.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 302, in resource "null_resource" "build_docker_image":
+ 302:   template = file("${path.module}/../../userdata/templates/configmap.yaml.template")
+ 303:   vars = {
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 303, in resource "null_resource" "build_docker_image":
+ 303:   vars = {
+ 304:     namespace = var.namespace
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 304, in resource "null_resource" "build_docker_image":
+ 304:     namespace = var.namespace
+ 305:     registry = var.registry
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 305, in resource "null_resource" "build_docker_image":
+ 305:     registry = var.registry
+ 306:     tenancy_name = data.oci_identity_tenancy.my_tenancy.name
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 306, in resource "null_resource" "build_docker_image":
+ 306:     tenancy_name = data.oci_identity_tenancy.my_tenancy.name
+ 307:     repo_name = var.repo_name
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 307, in resource "null_resource" "build_docker_image":
+ 307:     repo_name = var.repo_name
+ 308:     image_name = var.image_name
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 308, in resource "null_resource" "build_docker_image":
+ 308:     image_name = var.image_name
+ 309:     image_label = var.image_label
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 309, in resource "null_resource" "build_docker_image":
+ 309:     image_label = var.image_label
+ 310:   }
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 310, in resource "null_resource" "build_docker_image":
+ 310:   }
+ 311: }
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 311, in resource "null_resource" "build_docker_image":
+ 311: }
+ 313: data "template_file" "secrets_template" {
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 313, in resource "null_resource" "build_docker_image":
+ 313: data "template_file" "secrets_template" {
+ 314:   template = file("${path.module}/../../userdata/templates/secrets.yaml.template")
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid character[0m
+
+[0m  on modules/airflow/main.tf line 314, in resource "null_resource" "build_docker_image":
+ 314:   template = file("[4m$[0m{path.module}/../../userdata/templates/secrets.yaml.template")
+[0m
+This character is not used within the language.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 314, in resource "null_resource" "build_docker_image":
+ 314:   template = file("${path.module}/../../userdata/templates/secrets.yaml.template")
+ 315:   vars = {
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 315, in resource "null_resource" "build_docker_image":
+ 315:   vars = {
+ 316:     sql_alchemy_conn = local.sql_alchemy_conn
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 316, in resource "null_resource" "build_docker_image":
+ 316:     sql_alchemy_conn = local.sql_alchemy_conn
+ 317:   }
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 317, in resource "null_resource" "build_docker_image":
+ 317:   }
+ 318: }
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 318, in resource "null_resource" "build_docker_image":
+ 318: }
+ 320: data "template_file" "airflow_template" {
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 320, in resource "null_resource" "build_docker_image":
+ 320: data "template_file" "airflow_template" {
+ 321:   template = file("${path.module}/../../userdata/templates/airflow.yaml.template")
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid character[0m
+
+[0m  on modules/airflow/main.tf line 321, in resource "null_resource" "build_docker_image":
+ 321:   template = file("[4m$[0m{path.module}/../../userdata/templates/airflow.yaml.template")
+[0m
+This character is not used within the language.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 321, in resource "null_resource" "build_docker_image":
+ 321:   template = file("${path.module}/../../userdata/templates/airflow.yaml.template")
+ 322:   vars = {
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 322, in resource "null_resource" "build_docker_image":
+ 322:   vars = {
+ 323:     namespace = var.namespace
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 323, in resource "null_resource" "build_docker_image":
+ 323:     namespace = var.namespace
+ 324:     registry = var.registry
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 324, in resource "null_resource" "build_docker_image":
+ 324:     registry = var.registry
+ 325:     tenancy_name = data.oci_identity_tenancy.my_tenancy.name
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 325, in resource "null_resource" "build_docker_image":
+ 325:     tenancy_name = data.oci_identity_tenancy.my_tenancy.name
+ 326:     repo_name = var.repo_name
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 326, in resource "null_resource" "build_docker_image":
+ 326:     repo_name = var.repo_name
+ 327:     image_name = var.image_name
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 327, in resource "null_resource" "build_docker_image":
+ 327:     image_name = var.image_name
+ 328:     image_label = var.image_label
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 328, in resource "null_resource" "build_docker_image":
+ 328:     image_label = var.image_label
+ 329:   }
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 329, in resource "null_resource" "build_docker_image":
+ 329:   }
+ 330: }
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 330, in resource "null_resource" "build_docker_image":
+ 330: }
+ 333: resource "null_resource" "deploy_airflow" {
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 333, in resource "null_resource" "build_docker_image":
+ 333: resource "null_resource" "deploy_airflow" {
+ 334:   depends_on = [null_resource.push_to_registry]
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 334, in resource "null_resource" "build_docker_image":
+ 334:   depends_on = [null_resource.push_to_registry]
+ 336:   connection {
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 336, in resource "null_resource" "build_docker_image":
+ 336:   connection {
+ 337:     host        = var.instance_ip
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 337, in resource "null_resource" "build_docker_image":
+ 337:     host        = var.instance_ip
+ 338:     private_key = var.ssh_private_key
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 338, in resource "null_resource" "build_docker_image":
+ 338:     private_key = var.ssh_private_key
+ 339:     timeout     = "40m"
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 339, in resource "null_resource" "build_docker_image":
+ 339:     timeout     = "40m"
+ 340:     type        = "ssh"
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 340, in resource "null_resource" "build_docker_image":
+ 340:     type        = "ssh"
+ 341:     user        = "opc"
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 341, in resource "null_resource" "build_docker_image":
+ 341:     user        = "opc"
+ 342:   }
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 342, in resource "null_resource" "build_docker_image":
+ 342:   }
+ 344:   provisioner "remote-exec" {
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 344, in resource "null_resource" "build_docker_image":
+ 344:   provisioner "remote-exec" {
+ 345:     inline = [
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 345, in resource "null_resource" "build_docker_image":
+ 345:     inline = [
+ 346:       "mkdir -p $HOME/airflow/build"
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid character[0m
+
+[0m  on modules/airflow/main.tf line 346, in resource "null_resource" "build_docker_image":
+ 346:       "mkdir -p [4m$[0mHOME/airflow/build"
+[0m
+This character is not used within the language.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 346, in resource "null_resource" "build_docker_image":
+ 346:       "mkdir -p $HOME/airflow/build"
+ 347:     ]
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 347, in resource "null_resource" "build_docker_image":
+ 347:     ]
+ 348:   }
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 348, in resource "null_resource" "build_docker_image":
+ 348:   }
+ 350:   provisioner "file" {
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 350, in resource "null_resource" "build_docker_image":
+ 350:   provisioner "file" {
+ 351:     content     = data.template_file.volumes.rendered
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 351, in resource "null_resource" "build_docker_image":
+ 351:     content     = data.template_file.volumes.rendered
+ 352:     destination = "~/airflow/build/volumes.yaml"
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mUnsupported operator[0m
+
+[0m  on modules/airflow/main.tf line 352, in resource "null_resource" "build_docker_image":
+ 352:     destination = "[4m~[0m/airflow/build/volumes.yaml"
+[0m
+Bitwise operators are not supported. Did you mean boolean NOT ("!")?
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 352, in resource "null_resource" "build_docker_image":
+ 352:     destination = "~/airflow/build/volumes.yaml"
+ 353:   }
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 353, in resource "null_resource" "build_docker_image":
+ 353:   }
+ 355:   provisioner "file" {
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 355, in resource "null_resource" "build_docker_image":
+ 355:   provisioner "file" {
+ 356:     content     = data.template_file.configmap_template.rendered
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 356, in resource "null_resource" "build_docker_image":
+ 356:     content     = data.template_file.configmap_template.rendered
+ 357:     destination = "~/airflow/build/configmap.yaml"
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mUnsupported operator[0m
+
+[0m  on modules/airflow/main.tf line 357, in resource "null_resource" "build_docker_image":
+ 357:     destination = "[4m~[0m/airflow/build/configmap.yaml"
+[0m
+Bitwise operators are not supported. Did you mean boolean NOT ("!")?
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 357, in resource "null_resource" "build_docker_image":
+ 357:     destination = "~/airflow/build/configmap.yaml"
+ 358:   }  
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 358, in resource "null_resource" "build_docker_image":
+ 358:   }  
+ 360:   provisioner "file" {
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 360, in resource "null_resource" "build_docker_image":
+ 360:   provisioner "file" {
+ 361:     content     = data.template_file.airflow_template.rendered
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 361, in resource "null_resource" "build_docker_image":
+ 361:     content     = data.template_file.airflow_template.rendered
+ 362:     destination = "~/airflow/build/airflow.yaml"
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 362, in resource "null_resource" "build_docker_image":
+ 362:     destination = "~/airflow/build/airflow.yaml"
+ 363:   }  
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 363, in resource "null_resource" "build_docker_image":
+ 363:   }  
+ 365:   provisioner "file" {
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 365, in resource "null_resource" "build_docker_image":
+ 365:   provisioner "file" {
+ 366:     content     = data.template_file.secrets_template.rendered
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 366, in resource "null_resource" "build_docker_image":
+ 366:     content     = data.template_file.secrets_template.rendered
+ 367:     destination = "~/airflow/build/secrets.yaml"
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 367, in resource "null_resource" "build_docker_image":
+ 367:     destination = "~/airflow/build/secrets.yaml"
+ 368:   }  
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 368, in resource "null_resource" "build_docker_image":
+ 368:   }  
+ 370:   provisioner "file" {
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 370, in resource "null_resource" "build_docker_image":
+ 370:   provisioner "file" {
+ 371:     content     = data.template_file.deploy_airflow.rendered
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 371, in resource "null_resource" "build_docker_image":
+ 371:     content     = data.template_file.deploy_airflow.rendered
+ 372:     destination = "~/airflow/deploy_airflow.sh"
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 372, in resource "null_resource" "build_docker_image":
+ 372:     destination = "~/airflow/deploy_airflow.sh"
+ 373:   }
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 373, in resource "null_resource" "build_docker_image":
+ 373:   }
+ 376:   provisioner "remote-exec" {
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 376, in resource "null_resource" "build_docker_image":
+ 376:   provisioner "remote-exec" {
+ 377:     inline = [
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 377, in resource "null_resource" "build_docker_image":
+ 377:     inline = [
+ 378:       "cd $HOME/airflow",
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid character[0m
+
+[0m  on modules/airflow/main.tf line 378, in resource "null_resource" "build_docker_image":
+ 378:       "cd [4m$[0mHOME/airflow",
+[0m
+This character is not used within the language.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 378, in resource "null_resource" "build_docker_image":
+ 378:       "cd $HOME/airflow",
+ 379:       "chmod +x deploy_airflow.sh",
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 379, in resource "null_resource" "build_docker_image":
+ 379:       "chmod +x deploy_airflow.sh",
+ 380:       "./deploy_airflow.sh"
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 380, in resource "null_resource" "build_docker_image":
+ 380:       "./deploy_airflow.sh"
+ 381:     ]
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 381, in resource "null_resource" "build_docker_image":
+ 381:     ]
+ 382:   }
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m
+[31m
+[1m[31mError: [0m[0m[1mInvalid multi-line string[0m
+
+[0m  on modules/airflow/main.tf line 382, in resource "null_resource" "build_docker_image":
+ 382:   }
+ 383: }
+
+Quoted strings may not be split over multiple lines. To produce a multi-line
+string, either use the \n escape to represent a newline character or use the
+"heredoc" multi-line template syntax.
+[0m[0m

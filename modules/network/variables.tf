@@ -7,19 +7,16 @@
 variable "tenancy_ocid" {}
 variable "compartment_ocid" {}
 variable "region" {}
-variable "oci_service_gateway" {}
+#variable "oci_service_gateway" {}
 variable "VCN_CIDR" {}
 variable "useExistingVcn" {}
 variable "custom_vcn" {
   type = list(string)
   default = [" "]
 }
-variable "custom_cidrs" {
-  default = "false"
-}
-variable "vcn_dns_label" {
-  default = "airflowvcn"
-}
+
+variable "vcn_dns_label" {}
+
 variable "edge_cidr" {}
 variable "private_cidr" {}
 variable "myVcn" {}
@@ -29,8 +26,4 @@ variable "privateSubnet" {
 variable "edgeSubnet" {
   default = " "
 }
-# ---------------------------------------------------------------------------------------------------------------------
-# Optional variables
-# You can modify these.
-# ---------------------------------------------------------------------------------------------------------------------
-
+variable service_port {}

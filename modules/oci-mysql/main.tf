@@ -1,7 +1,8 @@
 resource "oci_mysql_mysql_db_system" "airflow_database" {
     admin_password = var.mysqladmin_password
     admin_username = var.mysqladmin_username
-    availability_domain = var.availability_domain
+#    availability_domain = var.availability_domain
+    availability_domain = data.oci_identity_availability_domains.ads.availability_domains[var.availability_domain - 1].name
     compartment_id = var.compartment_ocid
     shape_name = var.mysql_shape
     subnet_id = var.subnet_id
@@ -16,7 +17,3 @@ resource "oci_mysql_mysql_db_system" "airflow_database" {
     ip_address = var.oci_mysql_ip
 }
 
-
-data "oci_mysql_mysql_db_system" "airflow_database" {
-  db_system_id = oci_mysql_mysql_db_system.airflow_database.id
-}

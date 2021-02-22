@@ -1,0 +1,143 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: airflow
+  namespace: ${namespace}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: airflow
+  namespace: ${namespace}
+rules:
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    verbs: ["get", "watch", "list"]
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["get", "watch", "list"]
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: [""]
+    resources: ["pods/exec"]
+    verbs: ["get", "create"]
+  - apiGroups: [""]
+    resources: ["pods/log"]
+    verbs: ["get"]
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: airflow
+  namespace: ${namespace}
+subjects:
+  - kind: ServiceAccount
+    name: airflow
+roleRef:
+  kind: Role
+  name: airflow
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: airflow
+  namespace: ${namespace}
+  labels:
+    app: airflow
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: airflow
+  template:
+    metadata:
+      labels:
+        app: airflow
+    spec:
+      serviceAccountName: airflow
+      initContainers:
+      - name: "init"
+        image: ${registry}/${tenancy_name}/${repo_name}/${image_name}:${image_label}
+        imagePullPolicy: Always
+        envFrom:
+        - configMapRef:
+            name: airflow-config
+        env:
+        - name: AIRFLOW__CORE__SQL_ALCHEMY_CONN
+          valueFrom:
+            secretKeyRef:
+              name: airflow-secrets
+              key: sql_alchemy_conn
+        command: ["/bin/sh", "-c"]
+
+        args:
+          - sudo chown airflow:airflow /opt/airflow/dags;
+            airflow db init;
+            airflow users create --username airflow --firstname airflow --lastname airflow --role Admin --password airflow --email admin@airflow.org;
+            #wget https://raw.githubusercontent.com/oracle-quickstart/oci-airflow/devel/scripts/install_oci_plugins $HOME/airflow/install_oci_plugins && \
+            #chmod +x install_oci_plugins && \
+            #./install_oci_plugins;
+
+        volumeMounts:
+        - name: airflow-dags
+          mountPath: /opt/airflow/dags
+
+
+      containers:
+
+      - name: webserver
+        image: ${registry}/${tenancy_name}/${repo_name}/${image_name}:${image_label}
+        imagePullPolicy: IfNotPresent
+        command: ["airflow","webserver"]
+        envFrom:
+        - configMapRef:
+            name: airflow-config
+        env:
+        - name: AIRFLOW__CORE__SQL_ALCHEMY_CONN
+          valueFrom:
+            secretKeyRef:
+              name: airflow-secrets
+              key: sql_alchemy_conn
+        volumeMounts:
+        - name: airflow-dags
+          mountPath: /opt/airflow/dags
+
+      - name: scheduler
+        image: ${registry}/${tenancy_name}/${repo_name}/${image_name}:${image_label}
+        imagePullPolicy: IfNotPresent
+        command: ["airflow","scheduler"]
+        envFrom:
+        - configMapRef:
+            name: airflow-config
+        env:
+        - name: AIRFLOW__CORE__SQL_ALCHEMY_CONN
+          valueFrom:
+            secretKeyRef:
+              name: airflow-secrets
+              key: sql_alchemy_conn
+        volumeMounts:
+        - name: airflow-dags
+          mountPath: /opt/airflow/dags
+
+      volumes:
+      - name: airflow-dags
+        persistentVolumeClaim:
+          claimName: airflow-dags
+
+      imagePullSecrets:
+      - name: airflow-ocir-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: airflow
+  namespace: ${namespace}
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8080
+  selector:
+    app: airflow

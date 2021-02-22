@@ -1,29 +1,36 @@
 # ---------------------------------------------------------------------------------------------------------------------
+# AD Settings. By default uses AD1 
+# ---------------------------------------------------------------------------------------------------------------------
+variable "availability_domain" {
+  default = "1"
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
 # SSH Keys - Put this to top level because they are required
 # ---------------------------------------------------------------------------------------------------------------------
 
+# Create a new or use an existing SSK key
+variable "provide_ssh_key" {
+  default = "false"
+}
+
+# Leave it blank if you want TF to generate a new key
 variable "ssh_provided_key" {
   default = ""
 }
 
+
+
 # ---------------------------------------------------------------------------------------------------------------------
 # Network Settings
 # --------------------------------------------------------------------------------------------------------------------- 
+
+# If you want to use an existing VCN set useExistingVcn = "true" and configure OCID(s) of myVcn, privateSubnet and edgeSubnet
+
 variable "useExistingVcn" {
   default = "false"
 }
-variable "custom_cidrs" {
-  default = "false"
-}
-variable "VCN_CIDR" {
-  default = "10.0.0.0/16"
-}
-variable "edge_cidr" {
-  default = "10.0.1.0/24"
-}
-variable "private_cidr" {
-  default = "10.0.2.0/24"
-}
+
 variable "myVcn" {
   default = " "
 }
@@ -33,69 +40,108 @@ variable "privateSubnet" {
 variable "edgeSubnet" {
   default = " "
 }
-variable "vcn_dns_label" { 
-  default = "airflowvcn"
+
+# If useExistingVcn = "false" (default) terraform will create a new VCN. Set VCN and subnets paramameters below
+
+variable "network_params" {
+  type = map(string)
+  default = {
+    VCN_CIDR = "10.0.0.0/16"
+    edge_cidr = "10.0.1.0/24"
+    private_cidr = "10.0.2.0/24"
+    vcn_dns_label  = "airflowvcn"
+    service_port = "8080"
+  }
 }
-# Which AD to target - this can be adjusted.  Default 1 for single AD regions.
-variable "availability_domain" {
-  default = "1"
-}
+
+
 # ---------------------------------------------------------------------------------------------------------------------
-# ORM Schema variables
-# You should modify these based on deployment requirements.
-# These default to recommended values
-# --------------------------------------------------------------------------------------------------------------------- 
-variable "meta_db_type" {
-  default = "OCI Mysql"
-}
-variable "provide_ssh_key" {
-  default = "true"
-}
-variable "deploy_to_private_subnet" {
-  default = "true"
-}
+# OKE Settings
+# ---------------------------------------------------------------------------------------------------------------------
+
 variable "create_new_oke_cluster" {
   default = "true"
 }
-variable "kubernetes_version" {
-  default = "v1.18.10"
-}
-variable "airflow_node_pool_name" {
-  default = "Airflow-Node-Pool"
-}
-variable "airflow_node_pool_shape" {}
-variable "num_pool_airflow" {
-  default = 1
-}
-variable "cluster_options_add_ons_is_kubernetes_dashboard_enabled" {
-  default = true
-}
-variable "cluster_options_add_ons_is_tiller_enabled" {
-  default = true
-}
-variable "cluster_name" {}
-variable "cluster_options_admission_controller_options_is_pod_security_policy_enabled" {
-  description = "If true: The pod security policy admission controller will use pod security policies to restrict the pods accepted into the cluster."
-  default     = false
-}
+
+
 variable "existing_oke_cluster_id" {
   default = " "
 }
-variable "mysqladmin_password" {
-  default = ""
+
+variable "oke_params" {
+  type = map(string)
+  default = {
+    cluster_name = "airflow-cluster2"
+    kubernetes_version  = "v1.18.10"
+    airflow_node_pool_name = "Airflow-Node-Pool"
+    airflow_node_pool_shape = "VM.Standard2.2"
+    airflow_node_pool_size = 1
+    airflow_namespace = "airflow"
+    kube_label = "airflow"
+    cluster_options_add_ons_is_kubernetes_dashboard_enabled = false
+    cluster_options_admission_controller_options_is_pod_security_policy_enabled = "false"
+  }
 }
-variable "mysqladmin_username" {
-  default = "mysqladmin"
+
+# ---------------------------------------------------------------------------------------------------------------------
+# OCI registry settings
+# ---------------------------------------------------------------------------------------------------------------------
+
+variable "registry_params" {
+  type = map(string)
+  default = {
+    registry = "iad.ocir.io"
+    repo_name = "airflow"
+    username  = "oracleidentitycloudservice/michael.prestin@oracle.com"
+    image_name = "airflow"
+    image_label = "2.0"
+  }
 }
-variable "mysql_shape" {
-  default = "VM.Standard.E2.2"
+
+# ---------------------------------------------------------------------------------------------------------------------
+# OCI vault secret ID where authentication key is stored 
+# it is used for authenticatoin when pushing/pulling images to/from OCIR registry )
+# ---------------------------------------------------------------------------------------------------------------------
+variable "vault_secret_id" {
+  default = "ocid1.vaultsecret.oc1.iad.amaaaaaawe6j4fqahv4ylsta227avzuc5megexeu4y27s4cvrfru22ktmpqq"
 }
-variable "enable_mysql_backups" {
-  default = false
+
+
+# ---------------------------------------------------------------------------------------------------------------------
+# DB settings
+# ---------------------------------------------------------------------------------------------------------------------
+
+variable "meta_db_type" {
+  default = "OCI Mysql"
 }
-variable "oci_mysql_ip" {
-  default = "10.0.x.8"
+
+variable "mysql_params" {
+  type = map(string)
+  default = {
+    admin_username = "mysqladmin"
+    admin_password  = "A@flow1234"
+    shape = "VM.Standard.E2.2"
+    enable_backups = false
+    private_ip_address = ""
+    db_name = "airflow"
+    airflow_username = "airflow"
+    airflow_password = "A@flow1234"
+  }
 }
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Bastion VM Settings
+# ---------------------------------------------------------------------------------------------------------------------
+
+variable "bastion_params" {
+  type = map(string)
+  default = {
+    name = "bastion"
+    shape  = "VM.Standard2.1"
+  }
+}
+
+
 # ---------------------------------------------------------------------------------------------------------------------
 # Environmental variables
 # You probably want to define these as environmental variables.
@@ -108,6 +154,7 @@ variable "compartment_ocid" {}
 
 variable "tenancy_ocid" {}
 variable "region" {}
+
 
 
 // See https://docs.oracle.com/en-us/iaas/images/image/3318ef81-3970-4d69-92bc-e91392f87a13/
