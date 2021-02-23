@@ -77,7 +77,7 @@ resource "null_resource" "create_db" {
 # Kubectl
 
 data "template_file" "install_kubectl" {
-  template = file("${path.module}/../../userdata/install_kubectl.template.sh")
+  template = file("${path.module}/../../userdata/install_kubectl.sh")
 }
 
 resource "null_resource" "install_kubectl" {
@@ -108,7 +108,7 @@ resource "null_resource" "install_kubectl" {
 # Kubeconfig
 
 data "template_file" "generate_kubeconfig" {
-  template = file("${path.module}/../../userdata/generate_kubeconfig.template.sh")
+  template = file("${path.module}/../../userdata/generate_kubeconfig.sh")
 
   vars = {
     cluster-id = var.cluster_id
