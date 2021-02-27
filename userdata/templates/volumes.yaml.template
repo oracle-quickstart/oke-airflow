@@ -37,3 +37,33 @@ spec:
       storage: 20Gi
   volumeName: airflow-dags
 ---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: airflow-logs
+spec:
+  storageClassName: oci-fss
+  accessModes:
+    - ReadOnlyMany
+  capacity:
+    storage: 20Gi
+  mountOptions:
+   - nosuid
+  nfs:
+   server: ${NFS_IP}
+   path: "/airflow-logs/"
+   readOnly: false
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: airflow-logs
+spec:
+  storageClassName: "oci-fss"
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 20Gi
+  volumeName: airflow-logs
+---

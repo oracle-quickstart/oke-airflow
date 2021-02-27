@@ -188,6 +188,14 @@ data "template_file" "Dockerfile" {
   template = file("${path.module}/../../userdata/Dockerfile")
 }
 
+data "template_file" "install_oci_plugins" {
+  template = file("${path.module}/../../userdata/install_oci_plugins.sh")
+}
+
+data "template_file" "install_oci_dag_templates" {
+  template = file("${path.module}/../../userdata/install_oci_dag_templates.sh")
+}
+
 data "template_file" "pod_template" {
   template = file("${path.module}/../../userdata/templates/pod_template.yaml")
 }
@@ -218,6 +226,16 @@ resource "null_resource" "build_docker_image" {
     destination = "~/airflow/Dockerfile"
   }
   
+  provisioner "file" {
+    content     = data.template_file.install_oci_plugins.rendered
+    destination = "~/airflow/install_oci_plugins.sh"
+  }
+
+  provisioner "file" {
+    content     = data.template_file.install_oci_dag_templates.rendered
+    destination = "~/airflow/install_oci_dag_templates.sh"
+  }
+
   provisioner "file" {
     content     = data.template_file.pod_template.rendered
     destination = "~/airflow/pod_template.yaml"
@@ -326,6 +344,7 @@ data "template_file" "secrets_template" {
   }
 }
 
+
 data "template_file" "airflow_template" {
   template = file("${path.module}/../../userdata/templates/airflow.yaml.template")
   vars = {
@@ -376,6 +395,7 @@ resource "null_resource" "deploy_airflow" {
     destination = "~/airflow/build/secrets.yaml"
   }  
 
+  
   provisioner "file" {
     content     = data.template_file.deploy_airflow.rendered
     destination = "~/airflow/deploy_airflow.sh"

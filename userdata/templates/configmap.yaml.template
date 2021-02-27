@@ -6,9 +6,6 @@ metadata:
 data:
   AIRFLOW_HOME: "/opt/airflow"
   AIRFLOW__CORE__DAGS_FOLDER: "/opt/airflow/dags"
-  AIRFLOW__LOGGING__BASE_LOG_FOLDER: "/opt/airflow/dags/logs"
-  AIRFLOW__CORE__DAG_PROCESSOR_MANAGER_LOG_LOCATION: "/opt/airflow/dags/logs"
-  AIRFLOW__SCHEDULER__CHILD_PROCESS_LOG_DIRECTORY: "/opt/airflow/dags/logs"
   AIRFLOW__CORE__LOAD_EXAMPLES: "True"
   AIRFLOW__CORE__EXECUTOR: "KubernetesExecutor"
   AIRFLOW__CORE__SQL_ALCHEMY_CONN_SECRET: "sql_alchemy_conn"
@@ -17,3 +14,6 @@ data:
   AIRFLOW__KUBERNETES__WORKER_CONTAINER_TAG: "${image_label}"
   AIRFLOW__KUBERNETES__WORKER_SERVICE_ACCOUNT_NAME: "airflow"
   AIRFLOW__KUBERNETES__NAMESPACE: "${namespace}"
+  #AIRFLOW__LOGGING__BASE_LOG_FOLDER: "/opt/airflow/dags/logs"
+  #AIRFLOW__CORE__DAG_PROCESSOR_MANAGER_LOG_LOCATION: "/opt/airflow/dags/logs"
+  #AIRFLOW__SCHEDULER__CHILD_PROCESS_LOG_DIRECTORY: "/opt/airflow/dags/logs"

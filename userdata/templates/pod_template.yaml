@@ -20,6 +20,18 @@ spec:
       imagePullPolicy: IfNotPresent
       name: base
       ports: []
+      volumeMounts:
+        - name: airflow-dags
+          mountPath: /opt/airflow/dags
+        - name: airflow-logs
+          mountPath: /opt/airflow/logs
+  volumes:
+    - name: airflow-dags
+      persistentVolumeClaim:
+        claimName: airflow-dags
+    - name: airflow-logs
+      persistentVolumeClaim:
+        claimName: airflow-logs
   #hostNetwork: false
   restartPolicy: Never
   serviceAccountName: airflow

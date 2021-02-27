@@ -25,7 +25,7 @@ rules:
     verbs: ["get", "create"]
   - apiGroups: [""]
     resources: ["pods/log"]
-    verbs: ["get"]
+    verbs: ["get", "list"]
 ---
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
@@ -75,15 +75,16 @@ spec:
 
         args:
           - sudo chown airflow:airflow /opt/airflow/dags;
+            sudo chown airflow:airflow /opt/airflow/logs;
             airflow db init;
             airflow users create --username airflow --firstname airflow --lastname airflow --role Admin --password airflow --email admin@airflow.org;
-            #wget https://raw.githubusercontent.com/oracle-quickstart/oci-airflow/devel/scripts/install_oci_plugins $HOME/airflow/install_oci_plugins && \
-            #chmod +x install_oci_plugins && \
-            #./install_oci_plugins;
+            $HOME/scripts/install_oci_dag_templates.sh;
 
         volumeMounts:
         - name: airflow-dags
           mountPath: /opt/airflow/dags
+        - name: airflow-logs
+          mountPath: /opt/airflow/logs  
 
 
       containers:
@@ -104,6 +105,8 @@ spec:
         volumeMounts:
         - name: airflow-dags
           mountPath: /opt/airflow/dags
+        - name: airflow-logs
+          mountPath: /opt/airflow/logs  
 
       - name: scheduler
         image: ${registry}/${tenancy_name}/${repo_name}/${image_name}:${image_label}
@@ -121,11 +124,17 @@ spec:
         volumeMounts:
         - name: airflow-dags
           mountPath: /opt/airflow/dags
+        - name: airflow-logs
+          mountPath: /opt/airflow/logs  
 
       volumes:
       - name: airflow-dags
         persistentVolumeClaim:
           claimName: airflow-dags
+      - name: airflow-logs
+        persistentVolumeClaim:
+          claimName: airflow-logs
+
 
       imagePullSecrets:
       - name: airflow-ocir-secret

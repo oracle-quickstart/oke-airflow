@@ -32,6 +32,18 @@ RUN pip install oci && \
 COPY pod_template.yaml $AIRFLOW_USER_HOME/pod_template.yaml
 RUN chown $AIRFLOW_UID:$AIRFLOW_GID $AIRFLOW_USER_HOME/pod_template.yaml
 
+# Install OCI plugins and copy the script to download OCI DAG templates
+RUN mkdir -p $AIRFLOW_USER_HOME/scripts
+COPY install_oci_plugins.sh $AIRFLOW_USER_HOME/scripts/install_oci_plugins.sh
+COPY install_oci_dag_templates.sh $AIRFLOW_USER_HOME/scripts/install_oci_dag_templates.sh
+RUN chown -R $AIRFLOW_UID:$AIRFLOW_GID $AIRFLOW_USER_HOME/scripts && \
+    chmod +x $AIRFLOW_USER_HOME/scripts/install_oci_plugins.sh && \
+    chmod +x $AIRFLOW_USER_HOME/scripts/install_oci_dag_templates.sh
+
 USER $AIRFLOW_UID
 
 WORKDIR $AIRFLOW_USER_HOME
+
+# Install OCI plugins
+RUN $AIRFLOW_USER_HOME/scripts/install_oci_plugins.sh
+

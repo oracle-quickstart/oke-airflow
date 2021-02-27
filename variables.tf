@@ -71,7 +71,7 @@ variable "existing_oke_cluster_id" {
 variable "oke_params" {
   type = map(string)
   default = {
-    cluster_name = "airflow-cluster2"
+    cluster_name = "airflow-cluster"
     kubernetes_version  = "v1.18.10"
     airflow_node_pool_name = "Airflow-Node-Pool"
     airflow_node_pool_shape = "VM.Standard2.2"
@@ -103,7 +103,8 @@ variable "registry_params" {
 # it is used for authenticatoin when pushing/pulling images to/from OCIR registry )
 # ---------------------------------------------------------------------------------------------------------------------
 variable "vault_secret_id" {
-  default = "ocid1.vaultsecret.oc1.iad.amaaaaaawe6j4fqahv4ylsta227avzuc5megexeu4y27s4cvrfru22ktmpqq"
+#  default = "ocid1.vaultsecret.oc1.iad.amaaaaaawe6j4fqahv4ylsta227avzuc5megexeu4y27s4cvrfru22ktmpqq"
+  default = "ocid1.vaultsecret.oc1.iad.amaaaaaawe6j4fqav22xaknncsgwpir4hp3t24sgtwhcqxsxpji64ouspcaa"
 }
 
 
