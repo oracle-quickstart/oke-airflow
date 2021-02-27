@@ -20,7 +20,6 @@ variable "ssh_provided_key" {
 }
 
 
-
 # ---------------------------------------------------------------------------------------------------------------------
 # Network Settings
 # --------------------------------------------------------------------------------------------------------------------- 
@@ -90,9 +89,9 @@ variable "oke_params" {
 variable "registry_params" {
   type = map(string)
   default = {
-    registry = "iad.ocir.io"
+    registry = "iad.ocir.io"  # Change to OCIR registry in your region
     repo_name = "airflow"
-    username  = "oracleidentitycloudservice/michael.prestin@oracle.com"
+    username  = "oracleidentitycloudservice/<username>"  # Set the user to login OCIR registry
     image_name = "airflow"
     image_label = "2.0"
   }
@@ -101,10 +100,10 @@ variable "registry_params" {
 # ---------------------------------------------------------------------------------------------------------------------
 # OCI vault secret ID where authentication key is stored 
 # it is used for authenticatoin when pushing/pulling images to/from OCIR registry )
+# Set it to secret OCID where you store authentication token that is used to push/pull images from OCIR
 # ---------------------------------------------------------------------------------------------------------------------
 variable "vault_secret_id" {
-#  default = "ocid1.vaultsecret.oc1.iad.amaaaaaawe6j4fqahv4ylsta227avzuc5megexeu4y27s4cvrfru22ktmpqq"
-  default = "ocid1.vaultsecret.oc1.iad.amaaaaaawe6j4fqav22xaknncsgwpir4hp3t24sgtwhcqxsxpji64ouspcaa"
+#  default = "ocid1.vaultsecret.oc1.iad.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 }
 
 
