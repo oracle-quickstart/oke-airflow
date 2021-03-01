@@ -54,8 +54,3 @@ resource "random_string" "deploy_id" {
   special = false
 }
 
-data "null_data_source" "subnet" {
-  inputs = {
-    edge = var.useExistingVcn ? var.edgeSubnet :  module.network.edge-id 
-  }
-}

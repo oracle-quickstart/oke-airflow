@@ -359,7 +359,7 @@ data "template_file" "airflow_template" {
 
 
 resource "null_resource" "deploy_airflow" {
-  depends_on = [null_resource.push_to_registry]
+  depends_on = [null_resource.push_to_registry, null_resource.node_lifecycle]
 
   connection {
     host        = var.instance_ip
