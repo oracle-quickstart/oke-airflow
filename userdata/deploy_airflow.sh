@@ -37,5 +37,8 @@ kubectl -n ${namespace} apply -f secrets.yaml
 # Deploy airflow containers
 kubectl -n ${namespace} apply -f airflow.yaml
 
+# Wait until LB is created and public IP is allocated to airflow service
+sleep 120
+
 # Get service public IP address
 kubectl -n ${namespace} get svc

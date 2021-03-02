@@ -45,6 +45,7 @@ data "template_file" "create_db" {
 }
 
 resource "null_resource" "create_db" {
+  depends_on = [var.airflow_depends_on]
 
   connection {
     host        = var.instance_ip
@@ -273,7 +274,7 @@ data "template_file" "push_to_registry" {
 }
 
 resource "null_resource" "push_to_registry" {
-  depends_on = [null_resource.build_docker_image]
+  depends_on = [null_resource.build_docker_image, null_resource.install_oci_cli]
 
   connection {
     host        = var.instance_ip
