@@ -78,13 +78,6 @@ module "airflow" {
   cluster_id           = module.oke.cluster_id
   nodepool_id          = module.oke.nodepool_id
   region               = var.region
-#  number_of_nodes       = module.oke.number_of_nodes
-#  pods_cidrs            = module.oke.pods_cidrs
-#  provider_oci          = var.provider_oci
-#  ocir_urls             = var.ocir_urls
-#
-#  check_node_active     = var.check_node_active
-#  nodepool_depends_on   = [module.oke.nodepool_id]
   ssh_public_key = var.provide_ssh_key ? file(var.ssh_provided_public_key) : tls_private_key.ssh_key.public_key_openssh
   ssh_private_key = var.provide_ssh_key ? file(var.ssh_provided_private_key) : tls_private_key.ssh_key.private_key_pem
   registry = var.registry_params["registry"]
