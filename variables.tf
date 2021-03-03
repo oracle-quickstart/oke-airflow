@@ -11,16 +11,16 @@ variable "availability_domain" {
 
 # Create a new or use an existing SSK key
 variable "provide_ssh_key" {
-  default = "true"
+  default = "false"
 }
 
 # Path to existing private and public SSH key files. Leave both blank if you want TF to generate a new key
 
 variable "ssh_provided_private_key" {
-  default = "~/.ssh/id_rsa"
+  default = ""
 }
 variable "ssh_provided_public_key" {
-  default = "~/.ssh/id_rsa.pub"
+  default = ""
 }
 
 
