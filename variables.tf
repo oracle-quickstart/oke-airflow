@@ -11,12 +11,16 @@ variable "availability_domain" {
 
 # Create a new or use an existing SSK key
 variable "provide_ssh_key" {
-  default = "false"
+  default = "true"
 }
 
-# Leave it blank if you want TF to generate a new key
-variable "ssh_provided_key" {
-  default = ""
+# Path to existing private and public SSH key files. Leave both blank if you want TF to generate a new key
+
+variable "ssh_provided_private_key" {
+  default = "~/.ssh/id_rsa"
+}
+variable "ssh_provided_public_key" {
+  default = "~/.ssh/id_rsa.pub"
 }
 
 
@@ -89,9 +93,9 @@ variable "oke_params" {
 variable "registry_params" {
   type = map(string)
   default = {
-    registry = "iad.ocir.io"  # Change to OCIR registry in your region
+    registry = "iad.ocir.io"
     repo_name = "airflow"
-    username  = "oracleidentitycloudservice/<username>"  # Set the user to login OCIR registry
+    username  = "oracleidentitycloudservice/michael.prestin@oracle.com"
     image_name = "airflow"
     image_label = "2.0"
   }
@@ -100,10 +104,10 @@ variable "registry_params" {
 # ---------------------------------------------------------------------------------------------------------------------
 # OCI vault secret ID where authentication key is stored 
 # it is used for authenticatoin when pushing/pulling images to/from OCIR registry )
-# Set it to secret OCID where you store authentication token that is used to push/pull images from OCIR
 # ---------------------------------------------------------------------------------------------------------------------
 variable "vault_secret_id" {
-#  default = "ocid1.vaultsecret.oc1.iad.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+#  default = "ocid1.vaultsecret.oc1.iad.amaaaaaawe6j4fqahv4ylsta227avzuc5megexeu4y27s4cvrfru22ktmpqq"
+  default = "ocid1.vaultsecret.oc1.iad.amaaaaaawe6j4fqav22xaknncsgwpir4hp3t24sgtwhcqxsxpji64ouspcaa"
 }
 
 
