@@ -32,6 +32,8 @@ spec:
     - name: airflow-logs
       persistentVolumeClaim:
         claimName: airflow-logs
+  imagePullSecrets:
+    - name: airflow-ocir-secret
   #hostNetwork: false
   restartPolicy: Never
   serviceAccountName: airflow
