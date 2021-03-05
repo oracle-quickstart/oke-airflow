@@ -108,6 +108,7 @@ You can drill into additional detail by issuing the command using the pod name f
 OCI File Storage Service is used to provide a fault tolerant, highly available shared filesystem where Airflow DAGS and Log data are stored.  This filesystem is automatically mounted on OKE containers in `/opt/airflow/dags` and `/opt/airflow/logs`.
 
 You may also want to mount this on the Bastion host for ease of access - by default this is only mounted on OKE cluster containers.  In this example the FSS export IP is set to 10.0.2.3.
+
     sudo mkdir -p /opt/airflow/dags
     sudo mkdir -p /opt/airflow/logs
     sudo mount -o nosuid,resvport 10.0.2.3:/airflow-dags/ /opt/airflow/dags/
