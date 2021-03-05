@@ -1,79 +1,105 @@
 title: Airflow on OKE
 schemaVersion: 1.1.0
-version: "20210119"
+version: "20210302"
 locale: "en"
 groupings:
 - title: "SSH Key"
   variables:
-  - ${provide_ssh_key}
-  - ${ssh_provided_key}
+  - provide_ssh_public_key
+  - ssh_provided_public_key
 - title: "Availabilty Domain"
   variables:
-  - ${availability_domain}
+  - availability_domain
 - title: "VCN Options"
   variables:
-  - ${useExistingVcn}
-  - ${myVcn}
-  - ${vcn_dns_label}
-  - ${custom_cidrs}
-  - ${VCN_CIDR}
-  - ${edge_cidr}
-  - ${private_cidr}
+  - useExistingVcn
+  - myVcn
+  - vcn_dns_label
+  - custom_cidrs
+  - VCN_CIDR
+  - edge_cidr
+  - private_cidr
 - title: "OKE Cluster Options"
   variables:
-  - ${create_new_oke_cluster}
-  - ${cluster_name}
-  - ${kubernetes_version}
-  - ${deploy_to_private_subnet}
+  - cluster_name
+  - kubernetes_version
+  - existing_oke_cluster_id
+  - privateSubnet
 - title: "OKE Airflow Pool Configuration"
   variables:
-  - ${airflow_node_pool_name}
-  - ${airflow_node_pool_shape}
-  - ${num_pool_airflow}
-  visible: ${create_new_oke_cluster}
+  - airflow_node_pool_name
+  - airflow_node_pool_shape
+  - airflow_node_pool_size
+  - airflow_namespace
+  - kube_label
+  visible: create_new_oke_cluster
+- title: "OKE Registry Configuration"
+  variables:
+  - registry
+  - repo_name
+  - username
+  - image_name
+  - image_label
+- title: "Vault Configuration"
+  variables:
+  - vault_secret_id
 - title: "OCI-MySQL Configuration"
   variables:
-  - ${mysqladmin_username}
-  - ${mysqladmin_password}
-  - ${mysql_shape}
-  - ${oci_mysql_ip}
-  - ${enable_mysql_backups}
-- title: "OCI FSS Configuration"
-
+  - mysql_admin_username
+  - mysql_admin_password
+  - mysql_shape
+  - db_name
+  - airflow_username
+  - airflow_password
+  - private_ip_address
+  - enable_backups
+- title: "Bastion Configuration"
+  variables:
+  - bastion_name
+  - bastion_shape
+  - edgeSubnet
 - title: "Pre-Defined"
   variables:
-  - ${region}
-  - ${compartment_ocid}
-  - ${tenancy_ocid}
-  - ${oci_service_gateway}
-  - ${AD}
-  - ${meta_db_type}
-  - ${cluster_options_add_ons_is_kubernetes_dashboard_enabled}
-  - ${cluster_options_add_ons_is_tiller_enabled}
-  - ${cluster_options_admission_controller_options_is_pod_security_policy_enabled}
-  - ${existing_oke_cluster_id}
-  - ${OELImageOCID}
+  - create_new_oke_cluster
+  - region
+  - compartment_ocid
+  - tenancy_ocid
+  - oci_service_gateway
+  - meta_db_type
+  - cluster_options_add_ons_is_kubernetes_dashboard_enabled
+  - cluster_options_admission_controller_options_is_pod_security_policy_enabled
+  - OELImageOCID
+  - service_port
   visible: false
 
 variables:
-  provide_ssh_key:
+  provide_ssh_public_key:
     type: boolean
-    title: "Provide SSH Key"
-    description: "Un-Check to generate SSH key as part of deployment process.  This is NOT recommended for persistent environments, you should provide your own key for any production deployment."
+    title: "Provide Additional SSH Key"
+    description: "Check to provide an additional SSH key for host access.  By default a SSH key is generated automatically for cluster deployment activities (remote-exec)."
+    default: false
 
-  ssh_provided_key:
+  ssh_provided_public_key:
     type: string
     title: "SSH Public Key"
-    description: "Copy/Paste the contents of your SSH Public Key"
-    required: true
+    description: "Copy/Paste the contents of your additional SSH Public Key"
+    required: false
     default: ""
-    visible: ${provide_ssh_key}
+    visible: provide_ssh_public_key
 
   create_new_oke_cluster:
     type: boolean
     title: "Create OKE Cluster"
-    description: "Check to deploy a new OKE cluster."
+    description: "Check to deploy a new OKE cluster.  Required for now."
     default: "true"
+
+  existing_oke_cluster_id:
+    type: string
+    title: "Existing OKE Cluster ID"
+    description: "Input the existing OKE cluster ID here for deployment."
+    visible:
+      not:
+        - create_new_oke_cluster
 
   kubernetes_version:
     type: enum
@@ -89,23 +115,15 @@ variables:
     description: "Choose the version of Kubernetes to deploy"
     required: true
     default: "v1.18.10"
-    visible: ${create_new_oke_cluster}
-
-  deploy_to_private_subnet:
-    type: boolean
-    title: "Deploy to Private Subnet"
-    description: "Deploy Airflow Pods to Private Subnet (Recommended).  Un-check if you want Airflow Pods to deploy to an edge subnet with Publicly accessible IPs (NOT Recommended)"
-    required: true
-    default: "true"
-    visible: ${create_new_oke_cluster}
+    visible: create_new_oke_cluster
 
   cluster_name:
     type: string
     title: "OKE Cluster Name"
     description: "Name the OKE Cluster"
     required: "true"
-    default: "cluster1"
-    visible: ${create_new_oke_cluster}
+    default: "airflow-cluster"
+    visible: create_new_oke_cluster
 
   useExistingVcn:
     type: boolean
@@ -119,8 +137,8 @@ variables:
     title: "Existing VCN"
     description: "Select Existing VCN"
     dependsOn:
-      compartmentId: ${compartment_ocid}
-    visible: ${useExistingVcn}
+      compartmentId: compartment_ocid
+    visible: useExistingVcn
     required: true
 
   custom_cidrs:
@@ -129,30 +147,30 @@ variables:
     description: "Click to customize CIDR ranges, only applicable when creating VCN as part of deployment"
     required: true
     default: false
-    visible: 
+    visible:
       not:
-        - eq: 
-          - true
-          - ${useExistingVcn}
+        - useExistingVcn
 
   privateSubnet:
     type: oci:core:subnet:id
     title: "Private Subnet"
-    description: "Select Subnet - Ensure the Subnet is in the same Availability Domain selected above"
+    description: "Select Subnet for OKE cluster"
     dependsOn:
-      compartmentId: ${compartment_ocid}
-      vcnId: ${myVcn}
-    visible: ${useExistingVcn}
+      compartmentId: compartment_ocid
+      vcnId: myVcn
+      hidePublicSubnet: true
+    visible: useExistingVcn
     required: true
 
   edgeSubnet:
     type: oci:core:subnet:id
-    title: "Utility Subnet"
-    description: "Select Subnet - Ensure the Subnet is in the same Availability Domain selected above"
+    title: "Edge Subnet"
+    description: "Select Subnet for Bastion"
     dependsOn:
-      compartmentId: ${compartment_ocid}
-      vcnId: ${myVcn}
-    visible: ${useExistingVcn}
+      compartmentId: compartment_ocid
+      vcnId: myVcn
+      hidePrivateSubnet: true
+    visible: useExistingVcn
     required: true
 
   availability_domain:
@@ -160,26 +178,26 @@ variables:
     title: "Availability Domain"
     description: "Select AD"
     dependsOn:
-      compartmentId: ${compartment_ocid}
+      compartmentId: compartment_ocid
     required: true
 
   VCN_CIDR:
     type: string
     title: "VCN CIDR"
     description: "Customize VCN top level CIDR"
-    visible: ${custom_cidrs}
+    visible: custom_cidrs
 
   edge_cidr:
     type: string
     title: "Edge Subnet CIDR"
     description: "Customize Edge Subnet CIDR, ensure this fits in VCN CIDR range."
-    visible: ${custom_cidrs}
+    visible: custom_cidrs
 
   private_cidr:
     type: string
     title: "Private Subnet CIDR"
     description: "Customize Private Subnet CIDR, ensure this fits in VCN CIDR range."
-    visible: ${custom_cidrs}
+    visible: custom_cidrs
 
   vcn_dns_label:
     type: string
@@ -187,9 +205,7 @@ variables:
     description: "Set the VCN DNS label to be used when creating VCN.  Default is 'airflowvcn' which sets the VCN domain to 'airflowvcn.oraclevcn.com'"
     visible:
       not:
-        - eq:  
-          - true
-          - ${useExistingVcn}
+        - useExistingVcn
 
   meta_db_type:
     type: enum
@@ -205,49 +221,141 @@ variables:
     title: "Airflow Node Pool Name"
     description: "Define the node pool name, no spaces"
     required: true
-    visible: ${create_new_oke_cluster}
+    visible: create_new_oke_cluster
 
   airflow_node_pool_shape:
     type: oci:core:instanceshape:name
     title: "Airflow Node Pool Shape"
     description: "Define node pool shape"
     required: true
-    visible: ${create_new_oke_cluster}
+    visible: create_new_oke_cluster
     dependsOn:
-      compartmentId: ${compartment_ocid}
+      compartmentId: compartment_ocid
     default: "VM.Standard2.1"
 
-  num_pool_airflow:
+  airflow_node_pool_size:
     type: int
     title: "Airflow Node Pool size"
     description: "Enter a value, minimum 1"
     min: 1
     default: 1
     required: true
-    visible: ${create_new_oke_cluster}
+    visible: create_new_oke_cluster
 
-  mysqladmin_username:
+  airflow_namespace:
+    type: string
+    title: "Airflow Namespace"
+    default: "airflow"
+    required: true
+
+  kube_label:
+    type: string
+    title: "Kube Label"
+    default: "airflow"
+    required: true
+
+  registry:
+   type: string
+   title: "OCI Registry"
+   description: "Set this to the target region you are deploying to"
+   default: "iad.ocir.io"
+   required: true
+
+  repo_name:
+    type: string
+    title: "Repo Name"
+    default: "airflow"
+    required: true
+
+  username:
+    type: string
+    title: "OCI Registry Username"
+    description: "Set this to your username for OCI Registry"
+    required: true
+    default: "oracleidentitycloudservice/<username>"
+
+  image_name: 
+    type: string
+    title: "Docker Image Name"
+    default: "airflow"
+    required: true
+
+  image_label: 
+    type: string
+    title: "Docker Image Label"
+    default: "2.0"
+    required: true
+
+  vault_secret_id:
+    type: string
+    title: "Vault Secret ID"
+    description: "OCI vault secret ID where authentication key is stored - it is used for authenticatoin when pushing/pulling images to/from OCIR registry. Set it to secret OCID where you store authentication token that is used to push/pull images from OCIR"
+    default: "ocid1.vaultsecret.oc1.iad.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    required: true
+
+  mysql_admin_username:
     type: string
     title: "OCI MySQL username"
     description: "Enter a username for the MySQL database admin user"
     default: "mysqladmin"
     required: true
 
-  mysqladmin_password:
+  mysql_admin_password:
     type: password
     title: "OCI MySQL password"
     description: "The password for the administrative user. The password must be between 8 and 32 characters long, and must contain at least 1 numeric character, 1 lowercase character, 1 uppercase character, and 1 special (nonalphanumeric) character."
     required: true
 
-  oci_mysql_ip:
+  mysql_shape:
+    type: enum
+    enum:
+    - "VM.Standard.E2.1"
+    - "VM.Standard.E2.2"
+    - "VM.Standard.E2.3"
+    - "VM.Standard.E2.4"
+    title: "OCI MySQL instance shape"
+    description: "Shape of the OCI MySQL intance"
+    default: "VM.Standard.E2.2"
+
+  private_ip_address:
     type: string
     title: "OCI MySQL IP"
     description: "Private IP Address for the OCI MySQL server listener.  The default uses the built-in VCN configuration when creating a private subnet, if using a custom VCN or changing the VCN/Subnet CIDRs you will need to adjust this accordingly to ensure it's in scope."
-    required: true
+    default: "10.0.2.8"
 
-  enable_mysql_backups:
+  enable_backups:
     type: boolean
     title: "Enable MySQL backups"
     description: "Enable MySQL backups for OCI MySQL database"
     default: false
 
+  db_name:
+    type: string
+    title: "Airflow Database Name"
+    default: "airflow"
+    required: true
+
+  airflow_username:
+    type: string
+    title: "Airflow DB Username"
+    default: "airflow"
+    required: true
+
+  airflow_password:
+    type: password
+    title: "Airflow DB password"
+    required: true
+
+  bastion_name:
+    type: string
+    title: "Bastion Name"
+    default: "bastion"
+    required: true
+    
+  bastion_shape:
+    type: oci:core:instanceshape:name
+    title: "Bastion Instance Shape"
+    dependsOn:
+      compartmentId: compartment_ocid
+    default: "VM.Standard2.1"
+    required: true

@@ -1,5 +1,5 @@
-data "oci_core_services" "all_svcs_moniker" {
-  count = var.useExistingVcn ? 0 : 1
+data "oci_core_services" "net_services" {
+#  count = var.useExistingVcn ? 0 : 1
   filter {
     name   = "name"
     values = ["All .* Services In Oracle Services Network"]
@@ -7,8 +7,10 @@ data "oci_core_services" "all_svcs_moniker" {
   }
 }
 
+
 # Randoms
 resource "random_string" "deploy_id" {
   length  = 4
   special = false
 }
+

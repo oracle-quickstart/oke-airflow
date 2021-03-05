@@ -24,7 +24,7 @@ resource "oci_core_service_gateway" "airflow_service_gateway" {
   count = var.useExistingVcn ? 0 : 1
   compartment_id = var.compartment_ocid
   services {
-    service_id = lookup(data.oci_core_services.all_svcs_moniker[count.index].services[0], "id")
+  service_id = data.oci_core_services.net_services.services[0]["id"]
   }
   vcn_id = var.useExistingVcn ? var.custom_vcn[0] : oci_core_vcn.airflow_vcn.0.id
   display_name = "Airflow Service Gateway"
@@ -50,7 +50,8 @@ resource "oci_core_route_table" "private" {
   display_name   = "private"
 
   route_rules {
-      destination       = var.oci_service_gateway
+#      destination       = var.oci_service_gateway
+      destination       = data.oci_core_services.net_services.services[0]["cidr_block"]
       destination_type  = "SERVICE_CIDR_BLOCK"
       network_entity_id = oci_core_service_gateway.airflow_service_gateway.*.id[count.index]
     }
@@ -70,7 +71,7 @@ resource "oci_core_security_list" "EdgeSubnet" {
 
   egress_security_rules {
     destination = "0.0.0.0/0"
-    protocol    = "6"
+    protocol    = "all"
   }
 
   ingress_security_rules {
@@ -82,6 +83,17 @@ resource "oci_core_security_list" "EdgeSubnet" {
     protocol = "6"
     source   = "0.0.0.0/0"
   }
+  
+  ingress_security_rules {
+    tcp_options {
+      max = var.service_port
+      min = var.service_port
+    }
+
+    protocol = "6"
+    source   = "0.0.0.0/0"
+  }
+
   ingress_security_rules {
     protocol = "6"
     source   = var.VCN_CIDR
@@ -96,12 +108,12 @@ resource "oci_core_security_list" "PrivateSubnet" {
 
   egress_security_rules {
     destination = "0.0.0.0/0"
-    protocol    = "6"
+    protocol    = "all"
   }
-  egress_security_rules {
-    protocol    = "6"
-    destination = var.VCN_CIDR
-  }
+#  egress_security_rules {
+#    protocol    = "6"
+#    destination = var.VCN_CIDR
+#  }
 
   ingress_security_rules {
     protocol = "6"
@@ -111,7 +123,7 @@ resource "oci_core_security_list" "PrivateSubnet" {
 
 resource "oci_core_subnet" "edge" {
   count = var.useExistingVcn ? 0 : 1
-  cidr_block          = var.custom_cidrs ? var.edge_cidr : cidrsubnet(var.VCN_CIDR, 8, 1)
+  cidr_block          = var.edge_cidr
   display_name        = "edge"
   compartment_id      = var.compartment_ocid
   vcn_id              = var.useExistingVcn ? var.custom_vcn[0] : oci_core_vcn.airflow_vcn.0.id
@@ -123,7 +135,7 @@ resource "oci_core_subnet" "edge" {
 
 resource "oci_core_subnet" "private" {
   count = var.useExistingVcn ? 0 : 1
-  cidr_block          = var.custom_cidrs ? var.private_cidr : cidrsubnet(var.VCN_CIDR, 8, 2)
+  cidr_block          = var.private_cidr
   display_name        = "private"
   compartment_id      = var.compartment_ocid
   vcn_id              = var.useExistingVcn ? var.custom_vcn[0] : oci_core_vcn.airflow_vcn.0.id

@@ -9,9 +9,9 @@ data "oci_identity_availability_domains" "ADs" {
 }
 
 # Gets kubeconfig
-data "oci_containerengine_cluster_kube_config" "oke_cluster_kube_config" {
-  cluster_id = var.create_new_oke_cluster ? oci_containerengine_cluster.oke_airflow_cluster[0].id : var.existing_oke_cluster_id
-}
+#data "oci_containerengine_cluster_kube_config" "oke_cluster_kube_config" {
+#  cluster_id = var.create_new_oke_cluster ? oci_containerengine_cluster.oke_airflow_cluster[0].id : var.existing_oke_cluster_id
+#}
 
 
 locals {
@@ -54,8 +54,3 @@ resource "random_string" "deploy_id" {
   special = false
 }
 
-data "null_data_source" "subnet" {
-  inputs = {
-    edge = var.useExistingVcn ? var.edgeSubnet :  module.network.edge-id 
-  }
-}
