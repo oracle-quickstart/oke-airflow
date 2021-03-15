@@ -1,6 +1,6 @@
 data "null_data_source" "keymash" {
   inputs = {
-    pubkey = "${var.ssh_provided_public_key}\n${tls_private_key.ssh_key.public_key_openssh}"
+    pubkey = "${var.ssh_provided_public_key}\n${tls_private_key.oke_ssh_key.public_key_openssh}"
   }
 }
 
@@ -59,7 +59,7 @@ module "oke" {
   vcn_id = var.useExistingVcn ? var.myVcn : module.network.vcn-id
   subnet_id =  module.network.private-id
   lb_subnet_id = module.network.edge-id
-  ssh_public_key = var.provide_ssh_public_key ? data.null_data_source.keymash.outputs["pubkey"] : tls_private_key.ssh_key.public_key_openssh
+  ssh_public_key = var.provide_ssh_public_key ? data.null_data_source.keymash.outputs["pubkey"] : tls_private_key.oke_ssh_key.public_key_openssh
 }
 
 module "bastion" {
@@ -71,7 +71,7 @@ module "bastion" {
   instance_name = var.bastion_name
   subnet_id =  var.useExistingVcn ? var.edgeSubnet : module.network.edge-id
   assign_public_ip = "true"
-  ssh_public_key = var.provide_ssh_public_key ? data.null_data_source.keymash.outputs["pubkey"] : tls_private_key.ssh_key.public_key_openssh
+  ssh_public_key = var.provide_ssh_public_key ? data.null_data_source.keymash.outputs["pubkey"] : tls_private_key.oke_ssh_key.public_key_openssh
   bastion_depends_on = [module.oke]
 }
 
@@ -91,8 +91,8 @@ module "airflow" {
 #
 #  check_node_active     = var.check_node_active
 #  nodepool_depends_on   = [module.oke.nodepool_id]
-  ssh_public_key = var.provide_ssh_public_key ? data.null_data_source.keymash.outputs["pubkey"] : tls_private_key.ssh_key.public_key_openssh
-  ssh_private_key = tls_private_key.ssh_key.private_key_pem
+  ssh_public_key = var.provide_ssh_public_key ? data.null_data_source.keymash.outputs["pubkey"] : tls_private_key.oke_ssh_key.public_key_openssh
+  ssh_private_key = tls_private_key.oke_ssh_key.private_key_pem
   registry = var.registry
   repo_name = var.repo_name
   registry_user = var.username
