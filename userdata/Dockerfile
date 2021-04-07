@@ -14,7 +14,8 @@ RUN groupadd -g $AIRFLOW_GID airflow && \
   apt-get install -yqq sudo && \
   apt-get install -yqq wget && \
   apt-get install -yqq --no-install-recommends $buildDeps build-essential default-libmysqlclient-dev && \
-  pip install --no-cache-dir 'apache-airflow[crypto,kubernetes,mysql]' && \
+  pip install --no-cache-dir apache-airflow[crypto,kubernetes,mysql]==2.0.1 \ 
+--constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.0.1/constraints-3.7.txt" && \
   apt-get purge --auto-remove -yqq $buildDeps && \
   apt-get autoremove -yqq --purge && \
   rm -rf /var/lib/apt/lists/*
