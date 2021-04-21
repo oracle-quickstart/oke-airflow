@@ -39,16 +39,12 @@ This policy syntax is as follows, assuming the user is in a group "RepoAccess"
 
 You will need to gather the repo name, and user login to access the registry.  You will also need to configure the registry field to the region where your registry is deployed.
 
-![OKE Registry Settings](images/oke_registry_info.png)
-
 Note that in this example the registry username uses [Oracle Cloud Identity Service Federation](https://docs.oracle.com/en-us/iaas/Content/Identity/Tasks/federatingIDCS.htm).  If you are not using IDCS and using a local account, simply use the local account login (email address).
 
 The auth token is fetched from OCI Vault Secrets - you will need to capture the secret OCID prior to deployment.
 
-![Vault Secret](images/vault_secret.png)
-
 # Deployment
-The main branch of this deployment uses [Oracle Resource Manager](https://docs.oracle.com/en-us/iaas/Content/ResourceManager/Concepts/resourcemanager.htm).  The shell branch uses stand-alone Terraform (CLI).   
+The shell branch uses stand-alone Terraform (CLI).   
 
 This template deploys the following:
 
@@ -73,7 +69,6 @@ This template deploys the following:
 
 Simply click the Deploy to OCI button to create an ORM stack, then walk through the menu driven deployment.  Once the stack is created, use the Terraform Actions drop-down menu to Plan, then Apply the stack.
 
-[![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://console.us-ashburn-1.oraclecloud.com/resourcemanager/stacks/create?region=home&zipUrl=https://github.com/oracle-quickstart/oke-airflow/archive/1.0.2.zip)
 
 ## Deployment Architecture Diagram
 ![Deployment Architecture Diagram](images/deployment_architecture.png)
