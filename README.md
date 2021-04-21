@@ -70,9 +70,6 @@ This template deploys the following:
 Simply click the Deploy to OCI button to create an ORM stack, then walk through the menu driven deployment.  Once the stack is created, use the Terraform Actions drop-down menu to Plan, then Apply the stack.
 
 
-## Deployment Architecture Diagram
-![Deployment Architecture Diagram](images/deployment_architecture.png)
-
 The Bastion host is deployed to the public subnet and used to access the OKE cluster.   It is also leveraged in the build process, as remote-execution is used to drive Docker image build followed by push to OCI Registry then  OKE deployment.
 
 ## OKE
