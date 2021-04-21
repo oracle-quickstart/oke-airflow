@@ -95,7 +95,7 @@ variable "registry_params" {
   default = {
     registry = "iad.ocir.io"
     repo_name = "airflow"
-    username  = "<enter OCI user account>"
+    username  = "<OCI username>"
     image_name = "airflow"
     image_label = "2.0"
   }
@@ -106,7 +106,7 @@ variable "registry_params" {
 # it is used for authenticatoin when pushing/pulling images to/from OCIR registry )
 # ---------------------------------------------------------------------------------------------------------------------
 variable "vault_secret_id" {
-  default = "<enter vault secret ocid>"
+  default = "<vault secret ocid>"
 }
 
 
