@@ -95,7 +95,7 @@ variable "registry_params" {
   default = {
     registry = "iad.ocir.io"
     repo_name = "airflow"
-    username  = "oracleidentitycloudservice/michael.prestin@oracle.com"
+    username  = "<enter OCI user account>"
     image_name = "airflow"
     image_label = "2.0"
   }
@@ -106,8 +106,7 @@ variable "registry_params" {
 # it is used for authenticatoin when pushing/pulling images to/from OCIR registry )
 # ---------------------------------------------------------------------------------------------------------------------
 variable "vault_secret_id" {
-#  default = "ocid1.vaultsecret.oc1.iad.amaaaaaawe6j4fqahv4ylsta227avzuc5megexeu4y27s4cvrfru22ktmpqq"
-  default = "ocid1.vaultsecret.oc1.iad.amaaaaaawe6j4fqav22xaknncsgwpir4hp3t24sgtwhcqxsxpji64ouspcaa"
+  default = "<enter vault secret ocid>"
 }
 
 
