@@ -77,7 +77,7 @@ module "bastion" {
 
 module "airflow" {
   source                = "./modules/airflow"
-  airflow_depends_on = [module.bastion, module.oke, module.oci-mysql, module.bastion, module.network]
+  airflow_depends_on = [module.bastion, module.oke, module.oci-mysql, module.network]
   compartment_ocid       = var.compartment_ocid
   tenancy_ocid           = var.tenancy_ocid
   instance_ip          = module.bastion.public_ip
