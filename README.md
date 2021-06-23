@@ -73,12 +73,12 @@ This template deploys the following:
 
 Simply click the Deploy to OCI button to create an ORM stack, then walk through the menu driven deployment.  Once the stack is created, use the Terraform Actions drop-down menu to Plan, then Apply the stack.
 
-[![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://console.us-ashburn-1.oraclecloud.com/resourcemanager/stacks/create?region=home&zipUrl=https://github.com/oracle-quickstart/oke-airflow/archive/1.0.2.zip)
+[![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://console.us-ashburn-1.oraclecloud.com/resourcemanager/stacks/create?region=home&zipUrl=https://github.com/oracle-quickstart/oke-airflow/archive/1.0.3.zip)
 
 ## Deployment Architecture Diagram
 ![Deployment Architecture Diagram](images/deployment_architecture.png)
 
-The Bastion host is deployed to the public subnet and used to access the OKE cluster.   It is also leveraged in the build process, as remote-execution is used to drive Docker image build followed by push to OCI Registry then  OKE deployment.
+The Bastion host (by default) is deployed to the public subnet and used to access the OKE cluster.   It is also leveraged in the build process, CloudInit is used to drive Docker image build followed by push to OCI Registry then OKE deployment.  Build assets are staged in /airflow and can be removed or changed after initial stack deployment.   The bastion host can also be deployed to a private subnet and deployment will still work.
 
 ## OKE
 Load balancer service is included in the OKE cluster deployment for access to the Airflow Web UI on port 8080.  Once the cluster is built you can find the public IP by issuing the command:
