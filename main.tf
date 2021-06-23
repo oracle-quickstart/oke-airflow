@@ -1,6 +1,7 @@
-data "null_data_source" "keymash" {
+data "null_data_source" "values" {
   inputs = {
-    pubkey = "${var.ssh_provided_public_key}\n${tls_private_key.oke_ssh_key.public_key_openssh}"
+    bastion_subnet = var.public_edge_node ? module.network.edge-id : module.network.private-id
+    is_oke_public = var.cluster_endpoint_config_is_public_ip_enabled ? module.network.edge-id : module.network.private-id
   }
 }
 
@@ -16,7 +17,7 @@ module "network" {
   vcn_dns_label  = var.vcn_dns_label
   service_port = var.service_port
   custom_vcn = [var.myVcn]
-  privateSubnet = var.privateSubnet
+  OKESubnet = var.OKESubnet
   edgeSubnet = var.edgeSubnet
   myVcn = var.myVcn
 }
@@ -24,7 +25,7 @@ module "network" {
 module "fss" {
   source = "./modules/fss"
   compartment_ocid = var.compartment_ocid
-  subnet_id =  var.useExistingVcn ? var.privateSubnet : module.network.private-id
+  subnet_id =  var.useExistingVcn ? var.OKESubnet : data.null_data_source.values.outputs["is_oke_public"]
   availability_domain = var.availability_domain
   vcn_cidr = data.oci_core_vcn.vcn_info.cidr_block
 }
@@ -38,7 +39,7 @@ module "oci-mysql" {
   mysql_shape = var.mysql_shape
   enable_mysql_backups = var.enable_backups
   oci_mysql_ip = var.private_ip_address
-  subnet_id =  var.useExistingVcn ? var.privateSubnet : module.network.private-id
+  subnet_id =  var.useExistingVcn ? var.OKESubnet : data.null_data_source.values.outputs["is_oke_public"]
  
 }
 
@@ -57,52 +58,33 @@ module "oke" {
   cluster_options_admission_controller_options_is_pod_security_policy_enabled = var.cluster_options_admission_controller_options_is_pod_security_policy_enabled
   image_id = var.OELImageOCID[var.region]
   vcn_id = var.useExistingVcn ? var.myVcn : module.network.vcn-id
-  subnet_id =  module.network.private-id
+  subnet_id = var.useExistingVcn ? var.OKESubnet : data.null_data_source.values.outputs["is_oke_public"]
   lb_subnet_id = module.network.edge-id
-  ssh_public_key = var.provide_ssh_public_key ? data.null_data_source.keymash.outputs["pubkey"] : tls_private_key.oke_ssh_key.public_key_openssh
+  ssh_public_key = var.ssh_provided_public_key
+  cluster_endpoint_config_is_public_ip_enabled = var.cluster_endpoint_config_is_public_ip_enabled
 }
 
 module "bastion" {
+  depends_on = [module.oke, module.oci-mysql, module.network, module.fss]
   source = "./modules/bastion"
+  user_data = base64encode(file("userdata/init.sh"))
   compartment_ocid = var.compartment_ocid
   availability_domain = var.availability_domain
   image_id = var.OELImageOCID[var.region]
   instance_shape   = var.bastion_shape
   instance_name = var.bastion_name
-  subnet_id =  var.useExistingVcn ? var.edgeSubnet : module.network.edge-id
-  assign_public_ip = "true"
-  ssh_public_key = var.provide_ssh_public_key ? data.null_data_source.keymash.outputs["pubkey"] : tls_private_key.oke_ssh_key.public_key_openssh
-  bastion_depends_on = [module.oke]
-}
-
-module "airflow" {
-  source                = "./modules/airflow"
-  airflow_depends_on = [module.bastion, module.oke, module.oci-mysql, module.network]
-  compartment_ocid       = var.compartment_ocid
-  tenancy_ocid           = var.tenancy_ocid
-  instance_ip          = module.bastion.public_ip
-  cluster_id           = module.oke.cluster_id
-  nodepool_id          = module.oke.nodepool_id
-  region               = var.region
-#  number_of_nodes       = module.oke.number_of_nodes
-#  pods_cidrs            = module.oke.pods_cidrs
-#  provider_oci          = var.provider_oci
-#  ocir_urls             = var.ocir_urls
-#
-#  check_node_active     = var.check_node_active
-#  nodepool_depends_on   = [module.oke.nodepool_id]
-  ssh_public_key = var.provide_ssh_public_key ? data.null_data_source.keymash.outputs["pubkey"] : tls_private_key.oke_ssh_key.public_key_openssh
-  ssh_private_key = tls_private_key.oke_ssh_key.private_key_pem
-  registry = var.registry
-  repo_name = var.repo_name
-  registry_user = var.username
+  subnet_id =  var.useExistingVcn ? var.edgeSubnet : data.null_data_source.values.outputs["bastion_subnet"]
+  ssh_public_key = var.ssh_provided_public_key 
+  public_edge_node = var.public_edge_node
   image_name = var.image_name
   image_label = var.image_label
+  oke_cluster_id = var.create_new_oke_cluster ? module.oke.cluster_id : var.existing_oke_cluster_id
+  nodepool_id = module.oke.nodepool_id
+  repo_name = var.repo_name
+  registry = var.registry
+  registry_user = var.username
   secret_id = var.vault_secret_id
-  namespace = var.airflow_namespace
-  kube_label = var.kube_label
-  mount_target_id = module.fss.mount_target_id
-  nfs_ip = module.fss.nfs_ip
+  tenancy_ocid = var.tenancy_ocid
   admin_db_user = var.mysql_admin_username
   admin_db_password = var.mysql_admin_password
   airflow_db_user = var.airflow_username
@@ -110,4 +92,8 @@ module "airflow" {
   db_name = var.db_name
   db_ip = module.oci-mysql.db_ip
   db_port = module.oci-mysql.db_port
+  namespace = var.airflow_namespace
+  kube_label = var.kube_label
+  mount_target_id = module.fss.mount_target_id
+  nfs_ip = module.fss.nfs_ip 
 }

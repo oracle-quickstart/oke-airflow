@@ -3,7 +3,7 @@ output "vcn-id" {
 }
 
 output "private-id" {
-	value = var.useExistingVcn ? var.privateSubnet : oci_core_subnet.private.0.id
+	value = var.useExistingVcn ? var.OKESubnet : oci_core_subnet.private.0.id
 }
 
 output "edge-id" {

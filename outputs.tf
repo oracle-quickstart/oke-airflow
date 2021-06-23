@@ -1,3 +1,2 @@
-output "BASTION_IP" { value = module.bastion.public_ip }
-output "SSH_KEY_INFO" { value = "See below for generated SSH private key used for remote-exec." }
-output "SSH_PRIVATE_KEY" { value = tls_private_key.oke_ssh_key.private_key_pem }
+output "BASTION_PUBLIC_IP" { value = var.public_edge_node ? module.bastion.public_ip : "No public IP assigned" }
+output "INFO" { value = "CloudInit on Bastion host drives Airflow deployment.  Login to Bastion host and check /var/log/OCI-airflow-initialize.log for status" }

@@ -1,7 +1,5 @@
 locals {
-
   cluster_id = var.create_new_oke_cluster ? oci_containerengine_cluster.oke_airflow_cluster[0].id : var.existing_oke_cluster_id
-
   nodepool_id = oci_containerengine_node_pool.airflow_node_pool.id
 }
 

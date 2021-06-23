@@ -8,13 +8,6 @@ variable "availability_domain" {
 # ---------------------------------------------------------------------------------------------------------------------
 # SSH Keys - Put this to top level because they are required
 # ---------------------------------------------------------------------------------------------------------------------
-
-# Create a new or use an existing SSK key
-variable "provide_ssh_public_key" {
-  default = "false"
-}
-
-# Provide an additional public key for access to hosts
 variable "ssh_provided_public_key" {
   default = ""
 }
@@ -24,7 +17,7 @@ variable "ssh_provided_public_key" {
 # Network Settings
 # --------------------------------------------------------------------------------------------------------------------- 
 
-# If you want to use an existing VCN set useExistingVcn = "true" and configure OCID(s) of myVcn, privateSubnet and edgeSubnet
+# If you want to use an existing VCN set useExistingVcn = "true" and configure OCID(s) of myVcn, OKESubnet and edgeSubnet
 
 variable "useExistingVcn" {
   default = "false"
@@ -33,25 +26,12 @@ variable "useExistingVcn" {
 variable "myVcn" {
   default = " "
 }
-variable "privateSubnet" {
+variable "OKESubnet" {
   default = " "
 }
 variable "edgeSubnet" {
   default = " "
 }
-
-# If useExistingVcn = "false" (default) terraform will create a new VCN. Set VCN and subnets paramameters below
-
-#variable "network_params" {
-#  type = map(string)
-#  default = {
-#    VCN_CIDR = "10.0.0.0/16"
-#    edge_cidr = "10.0.1.0/24"
-#    private_cidr = "10.0.2.0/24"
-#    vcn_dns_label  = "airflowvcn"
-#    service_port = "8080"
-#  }
-#}
 
 variable "custom_cidrs" { 
   default = "false"
@@ -77,6 +57,9 @@ variable "service_port" {
   default = "8080"
 }
 
+variable "public_edge_node" {
+  default = true 
+}
 
 # ---------------------------------------------------------------------------------------------------------------------
 # OKE Settings
@@ -86,25 +69,9 @@ variable "create_new_oke_cluster" {
   default = "true"
 }
 
-
 variable "existing_oke_cluster_id" {
   default = " "
 }
-
-#variable "oke_params" {
-#  type = map(string)
-#  default = {
-#    cluster_name = "airflow-cluster"
-#    kubernetes_version  = "v1.18.10"
-#    airflow_node_pool_name = "Airflow-Node-Pool"
-#    airflow_node_pool_shape = "VM.Standard2.2"
-#    airflow_node_pool_size = 1
-#    airflow_namespace = "airflow"
-#    kube_label = "airflow"
-#    cluster_options_add_ons_is_kubernetes_dashboard_enabled = false
-#    cluster_options_admission_controller_options_is_pod_security_policy_enabled = "false"
-#  }
-#}
 
 variable "cluster_name" {
   default = "airflow-cluster"
@@ -142,21 +109,13 @@ variable "cluster_options_admission_controller_options_is_pod_security_policy_en
   default = "false"
 }
 
+variable "cluster_endpoint_config_is_public_ip_enabled" {
+  default = "false" 
+}
 
 # ---------------------------------------------------------------------------------------------------------------------
 # OCI registry settings
 # ---------------------------------------------------------------------------------------------------------------------
-
-#variable "registry_params" {
-#  type = map(string)
-#  default = {
-#    registry = "iad.ocir.io"  # Change to OCIR registry in your region
-#    repo_name = "airflow"
-#    username  = "oracleidentitycloudservice/<username>"  # Set the user to login OCIR registry
-#    image_name = "airflow"
-#    image_label = "2.0"
-#  }
-#}
 
 variable "registry" {
   default = "iad.ocir.io"
@@ -197,20 +156,6 @@ variable "meta_db_type" {
   default = "OCI Mysql"
 }
 
-#variable "mysql_params" {
-#  type = map(string)
-#  default = {
-#    admin_username = "mysqladmin"
-#    admin_password  = "A@flow1234"
-#    shape = "VM.Standard.E2.2"
-#    enable_backups = false
-#    private_ip_address = ""
-#    db_name = "airflow"
-#    airflow_username = "airflow"
-#    airflow_password = "A@flow1234"
-#  }
-#}
-
 variable "mysql_admin_username" {
   default = "mysqladmin"
 }
@@ -244,13 +189,6 @@ variable "airflow_password" {}
 # Bastion VM Settings
 # ---------------------------------------------------------------------------------------------------------------------
 
-#variable "bastion_params" {
-#  type = map(string)
-#  default = {
-#    name = "bastion"
-#    shape  = "VM.Standard2.1"
-#  }
-#}
 
 variable "bastion_name" {
   default = "bastion"
