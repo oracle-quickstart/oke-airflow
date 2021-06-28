@@ -3,9 +3,15 @@ schemaVersion: 1.1.0
 version: "20210302"
 locale: "en"
 groupings:
+- title: "Deployment Type"
+  variables: 
+  - use_remote_exec
 - title: "SSH Key"
   variables:
   - ssh_provided_public_key
+  visible:
+    not:
+      - use_remote_exec
 - title: "Availabilty Domain"
   variables:
   - availability_domain
@@ -61,7 +67,6 @@ groupings:
   - edgeSubnet
 - title: "Pre-Defined"
   variables:
-  - create_new_oke_cluster
   - region
   - compartment_ocid
   - tenancy_ocid
@@ -74,6 +79,12 @@ groupings:
   visible: false
 
 variables:
+  use_remote_exec: 
+    type: boolean
+    title: "Use Remote Execution"
+    description: "By default this deployment will use remote execution which requires a bastion with public IP address.  If you disable this, the deployment will allow you to use CloudInit on the bastion host for deployment.  This allows for more flexible deployment options which are not internet facing."
+    default: true
+    
   ssh_provided_public_key:
     type: string
     title: "SSH Public Key"
@@ -162,7 +173,7 @@ variables:
   edgeSubnet:
     type: oci:core:subnet:id
     title: "Edge Subnet"
-    description: "Select Subnet for Bastion"
+    description: "Select Subnet for Bastion.  If using remote exec, ensure that this is a public subnet or deployment will fail."
     dependsOn:
       compartmentId: compartment_ocid
       vcnId: myVcn
@@ -361,3 +372,6 @@ variables:
     title: "Deploy Bastion to Public Subnet"
     default: true
     required: true
+    visible:
+      not:
+        - use_remote_exec
