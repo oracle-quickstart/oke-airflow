@@ -53,7 +53,7 @@ The main branch of this deployment uses [Oracle Resource Manager](https://docs.o
 This template deploys the following:
 
 * Virtual Cloud Network
-  * Public Subnet
+  * Public (Edge) Subnet
   * Private Subnet
   * Internet Gateway
   * NAT Gateway
@@ -63,22 +63,33 @@ This template deploys the following:
     * TCP 22 for Edge SSH on public subnet
     * Ingress to both subnets from VCN CIDR
     * Egress to Internet for both subnets
-    * Ingress to var.service_port - default 8080 for Airflow UI
+    * Ingress to var.service_port - default 8080 for Airflow UI on loadbalancer
 * OCI Virtual Machine Bastion Instance
 * OCI MySQL as a Service for Airflow Metadata
-* OKE Cluster
+* OKE Cluster & loadbalancer
   * Webserver container
   * Scheduler container 
 
 
 Simply click the Deploy to OCI button to create an ORM stack, then walk through the menu driven deployment.  Once the stack is created, use the Terraform Actions drop-down menu to Plan, then Apply the stack.
 
-[![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://console.us-ashburn-1.oraclecloud.com/resourcemanager/stacks/create?region=home&zipUrl=https://github.com/oracle-quickstart/oke-airflow/archive/1.0.2.zip)
+[![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://console.us-ashburn-1.oraclecloud.com/resourcemanager/stacks/create?region=home&zipUrl=https://github.com/oracle-quickstart/oke-airflow/archive/2.0.0.zip)
+
+## Remote-exec vs. CloudInit
+This template allows for both remote-exec and CloudInit based deployments.  By default it uses remote-exec, which uses the bastion host as an intermediary to run deployment commands using SSH.   Alternatively this can be disabled, which allows for CloudInit based deployment.   CloudInit packs all deployment commands into the bastion host metadata, and executes at host build time.   This permits deployment with zero internet exposure, entirely on private subnet if desired.   Disabling the remote-exec option during stack setup will unlock options for CloudInit based deployment.
+
+### Logging
+Deployment log for CloudInit based deployment can be tracked by logging into the bastion host and executing:
+
+	tail -f /var/log/OCI-airflow-initialize.log
+    
+Remote execution logging is done in terraform output directly.
 
 ## Deployment Architecture Diagram
 ![Deployment Architecture Diagram](images/deployment_architecture.png)
 
-The Bastion host is deployed to the public subnet and used to access the OKE cluster.   It is also leveraged in the build process, as remote-execution is used to drive Docker image build followed by push to OCI Registry then  OKE deployment.
+This diagaram reflects the default deployment architecture.  The bastion host is deployed to the public (edge) subnet and used to access the OKE cluster.   It is also leveraged in the build process as mentioned above using either remote-execution or CloudInit.
+
 
 ## OKE
 Load balancer service is included in the OKE cluster deployment for access to the Airflow Web UI on port 8080.  Once the cluster is built you can find the public IP by issuing the command:
@@ -101,7 +112,7 @@ You should see similar output:
 
 You can drill into additional detail by issuing the command using the pod name from the previous command:
 
-    kubectl -n airflow  describe pod/airflow-75f45994f5-ll2rz
+    kubectl -n airflow describe pod/airflow-75f45994f5-ll2rz
 
 
 ## OCI FSS
@@ -117,11 +128,10 @@ You may also want to mount this on the Bastion host for ease of access - by defa
 ## OCI MySQL
 OCI MySQL service is used to store Airflow Metadata.  You can configure elements of the MySQL deployment, most importantly is ensuring the internal IP address is in scope with the OKE cluster subnet should you choose to deploy this to an existing VCN/Subnet topology.
 
-## *Important Note*
-It's important to note that you *must delete the airflow service* before you attempt to execute a Terraform destroy either via ORM or CLI.   To do this, login to the bastion host and execute the following command:
+# *Important Note*
+It's very important to note that you *must delete the airflow service* before you attempt to execute a Terraform *DESTROY* either via ORM or CLI.   To do this, login to the bastion host and execute the following command:
 
     kubectl -n airflow delete -f /home/opc/airflow/build/airflow.yaml
 
 This will remove the airflow service, and allow for graceful termination of related stack elements upon Terraform destroy.
-
 
