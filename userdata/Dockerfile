@@ -1,4 +1,4 @@
-FROM python:3.7.6-slim
+FROM python:latest
 
 ARG AIRFLOW_USER_HOME=/opt/airflow
 ARG AIRFLOW_USER="airflow"

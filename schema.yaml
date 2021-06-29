@@ -3,10 +3,15 @@ schemaVersion: 1.1.0
 version: "20210302"
 locale: "en"
 groupings:
+- title: "Deployment Type"
+  variables: 
+  - use_remote_exec
 - title: "SSH Key"
   variables:
-  - provide_ssh_public_key
   - ssh_provided_public_key
+  visible:
+    not:
+      - use_remote_exec
 - title: "Availabilty Domain"
   variables:
   - availability_domain
@@ -21,10 +26,12 @@ groupings:
   - private_cidr
 - title: "OKE Cluster Options"
   variables:
+  - create_new_oke_cluster
   - cluster_name
   - kubernetes_version
+  - cluster_endpoint_config_is_public_ip_enabled
+  - OKESubnet
   - existing_oke_cluster_id
-  - privateSubnet
 - title: "OKE Airflow Pool Configuration"
   variables:
   - airflow_node_pool_name
@@ -32,7 +39,6 @@ groupings:
   - airflow_node_pool_size
   - airflow_namespace
   - kube_label
-  visible: create_new_oke_cluster
 - title: "OKE Registry Configuration"
   variables:
   - registry
@@ -55,12 +61,12 @@ groupings:
   - enable_backups
 - title: "Bastion Configuration"
   variables:
+  - public_edge_node
   - bastion_name
   - bastion_shape
   - edgeSubnet
 - title: "Pre-Defined"
   variables:
-  - create_new_oke_cluster
   - region
   - compartment_ocid
   - tenancy_ocid
@@ -73,24 +79,23 @@ groupings:
   visible: false
 
 variables:
-  provide_ssh_public_key:
+  use_remote_exec: 
     type: boolean
-    title: "Provide Additional SSH Key"
-    description: "Check to provide an additional SSH key for host access.  By default a SSH key is generated automatically for cluster deployment activities (remote-exec)."
-    default: false
-
+    title: "Use Remote Execution"
+    description: "By default this deployment will use remote execution which requires a bastion with public IP address.  If you disable this, the deployment will allow you to use CloudInit on the bastion host for deployment.  This allows for more flexible deployment options which are not internet facing."
+    default: true
+    
   ssh_provided_public_key:
     type: string
     title: "SSH Public Key"
-    description: "Copy/Paste the contents of your additional SSH Public Key"
-    required: false
+    description: "Copy/Paste the contents of your SSH Public Key"
+    required: true 
     default: ""
-    visible: provide_ssh_public_key
 
   create_new_oke_cluster:
     type: boolean
     title: "Create OKE Cluster"
-    description: "Check to deploy a new OKE cluster.  Required for now."
+    description: "Check to deploy a new OKE cluster.  If you do not create an OKE cluster you must provide the OCID of an existing one."
     default: "true"
 
   existing_oke_cluster_id:
@@ -100,6 +105,13 @@ variables:
     visible:
       not:
         - create_new_oke_cluster
+
+  cluster_endpoint_config_is_public_ip_enabled:
+    type: boolean
+    title: "Create Public Endpoint"
+    description: "By default this template will create a secure Kubernetes API endpoint which is on a private subnet accessible only inside the VCN.  By checking this box, you choose to deploy the cluster to a PUBLIC subnet and create a PUBLICLY ACCESSIBLE endpoint.  This will also deploy FSS and OCI-MySQL assets to the same PUBLIC subnet."
+    default: false
+    visible: create_new_oke_cluster
 
   kubernetes_version:
     type: enum
@@ -148,25 +160,23 @@ variables:
       not:
         - useExistingVcn
 
-  privateSubnet:
+  OKESubnet:
     type: oci:core:subnet:id
-    title: "Private Subnet"
+    title: "OKE Subnet"
     description: "Select Subnet for OKE cluster"
     dependsOn:
       compartmentId: compartment_ocid
       vcnId: myVcn
-      hidePublicSubnet: true
     visible: useExistingVcn
     required: true
 
   edgeSubnet:
     type: oci:core:subnet:id
     title: "Edge Subnet"
-    description: "Select Subnet for Bastion"
+    description: "Select Subnet for Bastion.  If using remote exec, ensure that this is a public subnet or deployment will fail."
     dependsOn:
       compartmentId: compartment_ocid
       vcnId: myVcn
-      hidePrivateSubnet: true
     visible: useExistingVcn
     required: true
 
@@ -356,3 +366,12 @@ variables:
       compartmentId: compartment_ocid
     default: "VM.Standard2.1"
     required: true
+
+  public_edge_node:
+    type: boolean
+    title: "Deploy Bastion to Public Subnet"
+    default: true
+    required: true
+    visible:
+      not:
+        - use_remote_exec

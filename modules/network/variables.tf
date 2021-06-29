@@ -20,7 +20,7 @@ variable "vcn_dns_label" {}
 variable "edge_cidr" {}
 variable "private_cidr" {}
 variable "myVcn" {}
-variable "privateSubnet" {
+variable "OKESubnet" {
   default = " "
 }
 variable "edgeSubnet" {

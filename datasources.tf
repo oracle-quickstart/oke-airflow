@@ -8,11 +8,6 @@ data "oci_identity_availability_domains" "ADs" {
   compartment_id = var.tenancy_ocid
 }
 
-# Gets kubeconfig
-#data "oci_containerengine_cluster_kube_config" "oke_cluster_kube_config" {
-#  cluster_id = var.create_new_oke_cluster ? oci_containerengine_cluster.oke_airflow_cluster[0].id : var.existing_oke_cluster_id
-#}
-
 
 locals {
   # Helm repos
@@ -23,15 +18,6 @@ locals {
     svc-cat       = "https://svc-catalog-charts.storage.googleapis.com" # Service Catalog
   }
 }
-
-### Kubernetes Service: airflow-utils-ingress-nginx-controller
-#data "kubernetes_service" "airflow_ingress" {
-#  metadata {
-#    name      = "airflow-utils-ingress-nginx-controller" # airflow-utils name included to be backwards compatible to the docs and setup chart install
-#    namespace = kubernetes_namespace.airflow_utilities_namespace.id
-#  }
-#  depends_on = [helm_release.ingress-nginx]
-#}
 
 # OCI Services
 ## Available Services

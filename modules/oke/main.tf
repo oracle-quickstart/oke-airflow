@@ -1,9 +1,14 @@
 resource "oci_containerengine_cluster" "oke_airflow_cluster" {
   compartment_id     = var.compartment_ocid
   kubernetes_version = var.kubernetes_version
-#  name               = "${var.cluster_name}-${random_string.deploy_id.result}"
   name               = var.cluster_name
   vcn_id             = var.vcn_id
+
+  endpoint_config {
+    is_public_ip_enabled = var.cluster_endpoint_config_is_public_ip_enabled
+    # nsg_ids = var.cluster_endpoint_config_nsg_ids
+    subnet_id = var.subnet_id
+  }
 
   options {
     add_ons {
@@ -48,18 +53,4 @@ resource "oci_containerengine_node_pool" "airflow_node_pool" {
     key   = "name"
     value = var.airflow_node_pool_name
   }
-
-#  count = var.create_new_oke_cluster ? 1 : 0
-}
-
-# Local kubeconfig for when using Terraform locally. Not used by Oracle Resource Manager
-resource "local_file" "kubeconfig" {
-  content  = data.oci_containerengine_cluster_kube_config.oke_cluster_kube_config.content
-  filename = "generated/kubeconfig"
-}
-
-# Generate ssh keys to access Worker Nodes, if provide_ssh_key=false, applies to the pool
-resource "tls_private_key" "oke_worker_node_ssh_key" {
-  algorithm = "RSA"
-  rsa_bits  = 2048
 }

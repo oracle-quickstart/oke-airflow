@@ -90,6 +90,7 @@ Remote execution logging is done in terraform output directly.
 
 This diagaram reflects the default deployment architecture.  The bastion host is deployed to the public (edge) subnet and used to access the OKE cluster.   It is also leveraged in the build process as mentioned above using either remote-execution or CloudInit.
 
+Build assets are staged in $HOME/airflow for opc user when using remote-exec, or /airflow when using CloudInit.  They can be removed or changed after initial stack deployment, but you may want to keep them if you plan to modify/re-deploy.   
 
 ## OKE
 Load balancer service is included in the OKE cluster deployment for access to the Airflow Web UI on port 8080.  Once the cluster is built you can find the public IP by issuing the command:
