@@ -127,7 +127,7 @@ OCI MySQL service is used to store Airflow Metadata.  You can configure elements
 # *Important Note*
 It's very important to note that you *must delete the airflow service* before you attempt to execute a Terraform *DESTROY* either via ORM or CLI.   To do this, login to the bastion host and execute the following command:
 
-    kubectl -n airflow delete -f /home/opc/airflow/build/airflow.yaml
+    kubectl -n airflow delete svc airflow
 
 This will remove the airflow service, and allow for graceful termination of related stack elements upon Terraform destroy.
 
