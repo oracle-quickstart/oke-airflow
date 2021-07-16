@@ -1,4 +1,4 @@
-#Apache Airflow on OCI OKE
+# Apache Airflow on OCI OKE
 This quickstart template deploys [Apache Airflow](https://airflow.apache.org/) on [Oracle Kubernetes Engine (OKE)](https://docs.oracle.com/en-us/iaas/Content/ContEng/Concepts/contengoverview.htm).  
 
 # Pre-Requisites
