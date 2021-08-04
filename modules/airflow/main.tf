@@ -265,7 +265,7 @@ data "template_file" "push_to_registry" {
     registry = var.registry
     repo_name = var.repo_name
     registry_user = var.registry_user
-    tenancy_name = data.oci_identity_tenancy.my_tenancy.name
+    tenancy_name = data.oci_objectstorage_namespace.lookup.namespace
     region = var.region
     image_name = var.image_name
     image_label = var.image_label
@@ -307,7 +307,7 @@ data "template_file" "deploy_airflow" {
     registry = var. registry
     repo_name = var.repo_name
     registry_user = var.registry_user
-    tenancy_name = data.oci_identity_tenancy.my_tenancy.name
+    tenancy_name = data.oci_objectstorage_namespace.lookup.namespace
     region = var.region
     image_name = var.image_name
     image_label = var.image_label
@@ -330,7 +330,7 @@ data "template_file" "configmap_template" {
   vars = {
     namespace = var.namespace
     registry = var.registry
-    tenancy_name = data.oci_identity_tenancy.my_tenancy.name
+    tenancy_name = data.oci_objectstorage_namespace.lookup.namespace
     repo_name = var.repo_name
     image_name = var.image_name
     image_label = var.image_label
@@ -350,7 +350,7 @@ data "template_file" "airflow_template" {
   vars = {
     namespace = var.namespace
     registry = var.registry
-    tenancy_name = data.oci_identity_tenancy.my_tenancy.name
+    tenancy_name = data.oci_objectstorage_namespace.lookup.namespace
     repo_name = var.repo_name
     image_name = var.image_name
     image_label = var.image_label

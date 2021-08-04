@@ -196,7 +196,7 @@ fetch_metadata
 docker build -t ${image_name}:${image_label} . >> $LOG_FILE
 log "->Push to Registry"
 auth_token=`oci secrets secret-bundle get --secret-id ${secret_id} --stage CURRENT | jq  ."data.\"secret-bundle-content\".content" |  tr -d '"' | base64 -d`
-tenancy_name=`oci iam tenancy get --tenancy-id ${tenancy_ocid} | jq ."data.name" | tr -d '"'`
+tenancy_name=`oci os ns get | jq ."data" | tr -d '"'`
 export tenancy_name=$tenancy_name
 docker login ${registry} -u $tenancy_name/${registry_user} -p ${auth_token} >> $LOG_FILE
 docker tag "${image_name}:${image_label}" ${registry}/$tenancy_name/${repo_name}/${image_name}:${image_label} >> $LOG_FILE
