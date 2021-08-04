@@ -1,10 +1,3 @@
-data "null_data_source" "values" {
-  inputs = {
-    bastion_subnet = var.public_edge_node ? module.network.edge-id : module.network.private-id
-    is_oke_public = var.cluster_endpoint_config_is_public_ip_enabled ? module.network.edge-id : module.network.private-id
-  }
-}
-
 module "network" { 
   source = "./modules/network"
   tenancy_ocid = var.tenancy_ocid
@@ -25,7 +18,7 @@ module "network" {
 module "fss" {
   source = "./modules/fss"
   compartment_ocid = var.compartment_ocid
-  subnet_id =  var.useExistingVcn ? var.OKESubnet : data.null_data_source.values.outputs["is_oke_public"]
+  subnet_id =  var.useExistingVcn ? var.OKESubnet : local.is_oke_public
   availability_domain = var.availability_domain
   vcn_cidr = data.oci_core_vcn.vcn_info.cidr_block
 }
@@ -39,7 +32,7 @@ module "oci-mysql" {
   mysql_shape = var.mysql_shape
   enable_mysql_backups = var.enable_backups
   oci_mysql_ip = var.private_ip_address
-  subnet_id =  var.useExistingVcn ? var.OKESubnet : data.null_data_source.values.outputs["is_oke_public"]
+  subnet_id =  var.useExistingVcn ? var.OKESubnet : local.is_oke_public
  
 }
 
@@ -56,9 +49,9 @@ module "oke" {
   airflow_node_pool_size = var.airflow_node_pool_size
   cluster_options_add_ons_is_kubernetes_dashboard_enabled =  var.cluster_options_add_ons_is_kubernetes_dashboard_enabled
   cluster_options_admission_controller_options_is_pod_security_policy_enabled = var.cluster_options_admission_controller_options_is_pod_security_policy_enabled
-  image_id = var.OELImageOCID[var.region]
+  image_id = data.oci_core_images.oraclelinux7.images.0.id 
   vcn_id = var.useExistingVcn ? var.myVcn : module.network.vcn-id
-  subnet_id = var.useExistingVcn ? var.OKESubnet : data.null_data_source.values.outputs["is_oke_public"]
+  subnet_id = var.useExistingVcn ? var.OKESubnet : local.is_oke_public
   lb_subnet_id = module.network.edge-id
   ssh_public_key = var.use_remote_exec ? tls_private_key.oke_ssh_key.public_key_openssh : var.ssh_provided_public_key
   cluster_endpoint_config_is_public_ip_enabled = var.cluster_endpoint_config_is_public_ip_enabled
@@ -70,10 +63,10 @@ module "bastion" {
   user_data = var.use_remote_exec ? base64encode(file("userdata/init.sh")) : base64encode(file("userdata/cloudinit.sh"))
   compartment_ocid = var.compartment_ocid
   availability_domain = var.availability_domain
-  image_id = var.OELImageOCID[var.region]
+  image_id = data.oci_core_images.oraclelinux7.images.0.id 
   instance_shape   = var.bastion_shape
   instance_name = var.bastion_name
-  subnet_id =  var.useExistingVcn ? var.edgeSubnet : data.null_data_source.values.outputs["bastion_subnet"]
+  subnet_id =  var.useExistingVcn ? var.edgeSubnet : local.bastion_subnet
   ssh_public_key = var.use_remote_exec ? tls_private_key.oke_ssh_key.public_key_openssh : var.ssh_provided_public_key
   public_edge_node = var.public_edge_node
   image_name = var.image_name
