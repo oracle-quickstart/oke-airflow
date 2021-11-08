@@ -78,7 +78,7 @@ variable "cluster_name" {
 }
 
 variable "kubernetes_version" {
-  default = "v1.18.10"
+  default = "v1.20.11"
 }
 
 variable "airflow_node_pool_name" {
