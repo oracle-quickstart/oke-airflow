@@ -68,7 +68,7 @@ This template deploys the following:
 
 Simply click the Deploy to OCI button to create an ORM stack, then walk through the menu driven deployment.  Once the stack is created, use the Terraform Actions drop-down menu to Plan, then Apply the stack.
 
-[![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://console.us-ashburn-1.oraclecloud.com/resourcemanager/stacks/create?region=home&zipUrl=https://github.com/oracle-quickstart/oke-airflow/archive/2.0.0.zip)
+[![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://console.us-ashburn-1.oraclecloud.com/resourcemanager/stacks/create?region=home&zipUrl=https://github.com/oracle-quickstart/oke-airflow/archive/2.0.1.zip)
 
 ## Remote-exec vs. CloudInit
 This template allows for both remote-exec and CloudInit based deployments.  By default it uses remote-exec, which uses the bastion host as an intermediary to run deployment commands using SSH.   Alternatively this can be disabled, which allows for CloudInit based deployment.   CloudInit packs all deployment commands into the bastion host metadata, and executes at host build time.   This permits deployment with zero internet exposure, entirely on private subnet if desired.   Disabling the remote-exec option during stack setup will unlock options for CloudInit based deployment.
