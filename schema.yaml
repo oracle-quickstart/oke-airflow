@@ -76,6 +76,7 @@ groupings:
   - cluster_options_admission_controller_options_is_pod_security_policy_enabled
   - OELImageOCID
   - service_port
+  - endpoint_subnet_id
   visible: false
 
 variables:

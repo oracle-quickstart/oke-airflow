@@ -55,6 +55,7 @@ module "oke" {
   lb_subnet_id = module.network.edge-id
   ssh_public_key = var.use_remote_exec ? tls_private_key.oke_ssh_key.public_key_openssh : var.ssh_provided_public_key
   cluster_endpoint_config_is_public_ip_enabled = var.cluster_endpoint_config_is_public_ip_enabled
+  endpoint_subnet_id = var.cluster_endpoint_config_is_public_ip_enabled ? module.network.edge-id : module.network.private-id
 }
 
 module "bastion" {

@@ -7,7 +7,7 @@ resource "oci_containerengine_cluster" "oke_airflow_cluster" {
   endpoint_config {
     is_public_ip_enabled = var.cluster_endpoint_config_is_public_ip_enabled
     # nsg_ids = var.cluster_endpoint_config_nsg_ids
-    subnet_id = var.subnet_id
+    subnet_id = var.endpoint_subnet_id
   }
 
   options {

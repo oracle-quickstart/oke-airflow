@@ -15,3 +15,4 @@ variable "ssh_public_key" {}
 variable "create_new_oke_cluster" {}
 variable "existing_oke_cluster_id" {}
 variable "cluster_endpoint_config_is_public_ip_enabled" {}
+variable "endpoint_subnet_id" {}
