@@ -121,6 +121,22 @@ variable "endpoint_subnet_id" {
   default = " "
 }
 
+variable "node_pool_node_shape_config_memory_in_gbs" {
+  default = 2
+}
+
+variable "node_pool_node_shape_config_ocpus" {
+  default = 1
+}
+
+variable "flex_gbs" {
+  default = 2
+}
+
+variable "flex_ocpu" {
+  default = 1
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # OCI registry settings
 # ---------------------------------------------------------------------------------------------------------------------
@@ -206,6 +222,13 @@ variable "bastion_shape" {
   default = "VM.Standard2.1"
 }
 
+variable "bastion_flex_gbs" {
+  default = 1
+}
+
+variable "bastion_flex_ocpus" {
+  default = 2
+}
 # ---------------------------------------------------------------------------------------------------------------------
 # Environmental variables
 # You probably want to define these as environmental variables.

@@ -19,6 +19,14 @@ resource "oci_core_instance" "bastion" {
     user_data = var.user_data
   }
 
+  dynamic "shape_config" {
+    for_each = local.flex_shape
+      content {
+        memory_in_gbs = shape_config.value.memory_in_gbs
+        ocpus = shape_config.value.ocpus
+      }
+  }
+
   extended_metadata = {
     image_name = var.image_name
     image_label = var.image_label

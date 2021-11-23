@@ -44,6 +44,14 @@ resource "oci_containerengine_node_pool" "airflow_node_pool" {
     size = var.airflow_node_pool_size
   }
 
+  dynamic "node_shape_config" {
+    for_each = local.flex_shape
+      content {
+        memory_in_gbs = node_shape_config.value.memory_in_gbs
+        ocpus = node_shape_config.value.ocpus
+      }
+  }
+
   node_source_details {
     source_type = "IMAGE"
     image_id    = var.image_id

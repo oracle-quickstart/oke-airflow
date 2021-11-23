@@ -95,7 +95,7 @@ resource "oci_core_security_list" "EdgeSubnet" {
   }
 
   ingress_security_rules {
-    protocol = "6"
+    protocol = "all"
     source   = var.VCN_CIDR
   }
 }
@@ -116,7 +116,7 @@ resource "oci_core_security_list" "PrivateSubnet" {
 #  }
 
   ingress_security_rules {
-    protocol = "6"
+    protocol = "all"
     source   = var.VCN_CIDR
   }
 }

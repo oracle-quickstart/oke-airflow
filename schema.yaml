@@ -36,6 +36,8 @@ groupings:
   variables:
   - airflow_node_pool_name
   - airflow_node_pool_shape
+  - flex_gbs
+  - flex_ocpu
   - airflow_node_pool_size
   - airflow_namespace
   - kube_label
@@ -64,6 +66,8 @@ groupings:
   - public_edge_node
   - bastion_name
   - bastion_shape
+  - bastion_flex_gbs
+  - bastion_flex_ocpus
   - edgeSubnet
 - title: "Pre-Defined"
   variables:
@@ -77,6 +81,8 @@ groupings:
   - OELImageOCID
   - service_port
   - endpoint_subnet_id
+  - node_pool_node_shape_config_memory_in_gbs
+  - node_pool_node_shape_config_ocpus
   visible: false
 
 variables:
@@ -378,3 +384,87 @@ variables:
     visible:
       not:
         - use_remote_exec
+
+  flex_gbs:
+    type: int
+    title: "Memory in Gbs"
+    description: "Set memory in Gbs for Node Pool Flex shape - Maximum varies based on which flex shape is chosen - refer to https://docs.oracle.com/en-us/iaas/Content/Compute/References/computeshapes.htm"
+    default: 0
+    required: true
+    visible:
+      or:
+        - eq:
+          - ${airflow_node_pool_shape}
+          - "VM.Standard.E3.Flex"
+        - eq:
+          - ${airflow_node_pool_shape}
+          - "VM.Standard.E4.Flex"
+        - eq:
+          - ${airflow_node_pool_shape}
+          - "VM.Optimized3.Flex"
+        - eq:
+          - ${airflow_node_pool_shape}
+          - "VM.Standard.A1.Flex"
+
+  flex_ocpu:
+    type: int
+    title: "Number of OCPU"
+    description: "Set OCPU for Node Pool Flex shape - Maximum varies based on which flex shape is chosen - refer to https://docs.oracle.com/en-us/iaas/Content/Compute/References/computeshapes.htm"
+    default: 0
+    required: true
+    visible:
+      or:
+        - eq:
+          - ${airflow_node_pool_shape}
+          - "VM.Standard.E3.Flex"
+        - eq:
+          - ${airflow_node_pool_shape}
+          - "VM.Standard.E4.Flex"
+        - eq:
+          - ${airflow_node_pool_shape}
+          - "VM.Optimized3.Flex"
+        - eq:
+          - ${airflow_node_pool_shape}
+          - "VM.Standard.A1.Flex"
+
+  bastion_flex_gbs:
+    type: int
+    title: "Memory in Gbs"
+    description: "Set memory in Gbs for Node Pool Flex shape - Maximum varies based on which flex shape is chosen - refer to https://docs.oracle.com/en-us/iaas/Content/Compute/References/computeshapes.htm"
+    default: 0
+    required: true
+    visible:
+      or:
+        - eq:
+          - ${bastion_shape}
+          - "VM.Standard.E3.Flex"
+        - eq:
+          - ${bastion_shape}
+          - "VM.Standard.E4.Flex"
+        - eq:
+          - ${bastion_shape}
+          - "VM.Optimized3.Flex"
+        - eq:
+          - ${bastion_shape}
+          - "VM.Standard.A1.Flex"
+
+  bastion_flex_ocpus:
+    type: int
+    title: "Number of OCPU"
+    description: "Set OCPU for Node Pool Flex shape - Maximum varies based on which flex shape is chosen - refer to https://docs.oracle.com/en-us/iaas/Content/Compute/References/computeshapes.htm"
+    default: 0
+    required: true
+    visible:
+      or:
+        - eq:
+          - ${bastion_shape}
+          - "VM.Standard.E3.Flex"
+        - eq:
+          - ${bastion_shape}
+          - "VM.Standard.E4.Flex"
+        - eq:
+          - ${bastion_shape}
+          - "VM.Optimized3.Flex"
+        - eq:
+          - ${bastion_shape}
+          - "VM.Standard.A1.Flex"

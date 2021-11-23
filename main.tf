@@ -56,6 +56,9 @@ module "oke" {
   ssh_public_key = var.use_remote_exec ? tls_private_key.oke_ssh_key.public_key_openssh : var.ssh_provided_public_key
   cluster_endpoint_config_is_public_ip_enabled = var.cluster_endpoint_config_is_public_ip_enabled
   endpoint_subnet_id = var.cluster_endpoint_config_is_public_ip_enabled ? module.network.edge-id : module.network.private-id
+  node_pool_node_shape_config_memory_in_gbs = var.flex_gbs
+  node_pool_node_shape_config_ocpus = var.flex_ocpu
+  is_flex_shape = contains(["VM.Standard.E3.Flex", "VM.Standard.E4.Flex", "VM.Optimized3.Flex", "VM.Standard.A1.Flex"], var.airflow_node_pool_shape)
 }
 
 module "bastion" {
@@ -89,7 +92,10 @@ module "bastion" {
   namespace = var.airflow_namespace
   kube_label = var.kube_label
   mount_target_id = module.fss.mount_target_id
-  nfs_ip = module.fss.nfs_ip 
+  nfs_ip = module.fss.nfs_ip
+  bastion_flex_gbs = var.bastion_flex_gbs
+  bastion_flex_ocpus = var.bastion_flex_ocpus 
+  is_flex_shape = contains(["VM.Standard.E3.Flex", "VM.Standard.E4.Flex", "VM.Optimized3.Flex", "VM.Standard.A1.Flex"], var.bastion_shape)
 }
 
 module "airflow" {

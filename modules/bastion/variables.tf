@@ -30,4 +30,6 @@ variable "user_data" {}
 locals {
    sql_alchemy_conn=base64encode("mysql://${var.airflow_db_user}:${var.airflow_db_password}@${var.db_ip}:${var.db_port}/${var.db_name}")
 }
-
+variable "bastion_flex_gbs" {}
+variable "bastion_flex_ocpus" {}
+variable "is_flex_shape" {}

@@ -16,3 +16,6 @@ variable "create_new_oke_cluster" {}
 variable "existing_oke_cluster_id" {}
 variable "cluster_endpoint_config_is_public_ip_enabled" {}
 variable "endpoint_subnet_id" {}
+variable "node_pool_node_shape_config_memory_in_gbs" {}
+variable "node_pool_node_shape_config_ocpus" {}
+variable "is_flex_shape" {}
