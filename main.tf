@@ -18,7 +18,7 @@ module "network" {
 module "fss" {
   source = "./modules/fss"
   compartment_ocid = var.compartment_ocid
-  subnet_id =  var.useExistingVcn ? var.OKESubnet : local.is_oke_public
+  subnet_id =  var.useExistingVcn ? var.OKESubnet : module.network.private-id
   availability_domain = var.availability_domain
   vcn_cidr = data.oci_core_vcn.vcn_info.cidr_block
 }
@@ -32,7 +32,7 @@ module "oci-mysql" {
   mysql_shape = var.mysql_shape
   enable_mysql_backups = var.enable_backups
   oci_mysql_ip = var.private_ip_address
-  subnet_id =  var.useExistingVcn ? var.OKESubnet : local.is_oke_public
+  subnet_id =  var.useExistingVcn ? var.OKESubnet : module.network.private-id
  
 }
 
