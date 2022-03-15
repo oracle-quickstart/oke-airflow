@@ -503,7 +503,7 @@ EOF
 EXECNAME="OCI MySQL"
 log "->Install Client"
 yum install -y https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm >> $LOG_FILE
-yum install -y mysql >> $LOG_FILE
+yum install -y mysql --nogpgcheck >> $LOG_FILE
 log "->Create Airflow DB"
 log "-->Building SQL"
 echo -e "CREATE DATABASE IF NOT EXISTS ${db_name} CHARACTER SET utf8 COLLATE utf8_unicode_ci;" >> airflow.sql

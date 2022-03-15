@@ -3,7 +3,7 @@
 
 # Install MySQL client
 sudo yum install -y https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm
-sudo yum install -y mysql
+sudo yum install -y mysql --nogpgcheck
 
 # Connect to MySQL instance and create airflow database and user
 mysql  -h ${db_ip} -u ${admin_db_user} -p${admin_db_password} -e "CREATE DATABASE IF NOT EXISTS ${db_name} CHARACTER SET utf8 COLLATE utf8_unicode_ci;;"
