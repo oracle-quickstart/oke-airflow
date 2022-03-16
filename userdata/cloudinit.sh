@@ -74,7 +74,8 @@ RUN groupadd -g \$AIRFLOW_GID airflow && \\
   apt-get install -yqq wget && \\
   apt-get install -yqq --no-install-recommends \$buildDeps build-essential default-libmysqlclient-dev && \\
   python -m pip install --upgrade pip && \\
-  pip install --no-cache-dir 'apache-airflow[crypto,kubernetes,mysql]' && \\
+  pip3 install --no-cache-dir 'apache-airflow[crypto,kubernetes,mysql]' && \\
+  pip3 install --no-cache-dir 'pandas' && \\
   apt-get purge --auto-remove -yqq \$buildDeps && \\
   apt-get autoremove -yqq --purge && \\
   rm -rf /var/lib/apt/lists/*
@@ -83,8 +84,8 @@ RUN usermod -aG sudo \$AIRFLOW_USER && \\
     echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 # Install OCI python SKD
-RUN pip install oci && \\
-    pip install cx_Oracle
+RUN pip3 install oci && \\
+    pip3 install cx_Oracle
 
 # Copy airflow pod template file
 COPY pod_template.yaml \$AIRFLOW_USER_HOME/pod_template.yaml
