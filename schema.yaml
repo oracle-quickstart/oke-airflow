@@ -325,13 +325,29 @@ variables:
   mysql_shape:
     type: enum
     enum:
-    - "VM.Standard.E2.1"
-    - "VM.Standard.E2.2"
-    - "VM.Standard.E2.3"
-    - "VM.Standard.E2.4"
+    - "VM.Standard.E3.1.8GB"
+    - "VM.Standard.E3.1.16GB"
+    - "VM.Standard.E3.2.32GB"
+    - "VM.Standard.E3.4.64GB"
+    - "VM.Standard.E3.8.128GB"
+    - "VM.Standard.E3.16.256GB"
+    - "VM.Standard.E3.24.384GB"
+    - "VM.Standard.E3.32.512GB"
+    - "VM.Standard.E3.48.768GB"
+    - "VM.Standard.E3.64.1024GB"
+    - "VM.Standard.E4.1.8GB"
+    - "VM.Standard.E4.1.16GB"
+    - "VM.Standard.E4.2.32GB"
+    - "VM.Standard.E4.4.64GB"
+    - "VM.Standard.E4.8.128GB"
+    - "VM.Standard.E4.16.256GB"
+    - "VM.Standard.E4.24.384GB"
+    - "VM.Standard.E4.32.512GB"
+    - "VM.Standard.E4.48.768GB"
+    - "VM.Standard.E4.64.1024GB"
     title: "OCI MySQL instance shape"
     description: "Shape of the OCI MySQL intance"
-    default: "VM.Standard.E2.2"
+    default: "VM.Standard.E3.1.8GB"
 
   private_ip_address:
     type: string
