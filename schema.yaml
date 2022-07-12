@@ -1,6 +1,6 @@
 title: Airflow on OKE
 schemaVersion: 1.1.0
-version: "20210302"
+version: "20220712"
 locale: "en"
 groupings:
 - title: "Deployment Type"
@@ -74,11 +74,9 @@ groupings:
   - region
   - compartment_ocid
   - tenancy_ocid
-  - oci_service_gateway
   - meta_db_type
   - cluster_options_add_ons_is_kubernetes_dashboard_enabled
   - cluster_options_admission_controller_options_is_pod_security_policy_enabled
-  - OELImageOCID
   - service_port
   - endpoint_subnet_id
   - node_pool_node_shape_config_memory_in_gbs
@@ -123,16 +121,15 @@ variables:
   kubernetes_version:
     type: enum
     enum:
+    - "v1.23.4"
+    - "v1.22.5"
+    - "v1.21.5"
     - "v1.20.11"
     - "v1.20.8"
-    - "v1.19.15"
-    - "v1.19.12"
-    - "v1.19.7"
-    - "v1.18.10"
     title: "Kubernetes Version"
     description: "Choose the version of Kubernetes to deploy"
     required: true
-    default: "v1.20.11"
+    default: "v1.23.4"
     visible: create_new_oke_cluster
 
   cluster_name:
@@ -247,7 +244,7 @@ variables:
     visible: create_new_oke_cluster
     dependsOn:
       compartmentId: compartment_ocid
-    default: "VM.Standard2.1"
+    default: "VM.Standard.E4.Flex"
 
   airflow_node_pool_size:
     type: int
@@ -325,29 +322,29 @@ variables:
   mysql_shape:
     type: enum
     enum:
-    - "VM.Standard.E3.1.8GB"
-    - "VM.Standard.E3.1.16GB"
-    - "VM.Standard.E3.2.32GB"
-    - "VM.Standard.E3.4.64GB"
-    - "VM.Standard.E3.8.128GB"
-    - "VM.Standard.E3.16.256GB"
-    - "VM.Standard.E3.24.384GB"
-    - "VM.Standard.E3.32.512GB"
-    - "VM.Standard.E3.48.768GB"
-    - "VM.Standard.E3.64.1024GB"
-    - "VM.Standard.E4.1.8GB"
-    - "VM.Standard.E4.1.16GB"
-    - "VM.Standard.E4.2.32GB"
-    - "VM.Standard.E4.4.64GB"
-    - "VM.Standard.E4.8.128GB"
-    - "VM.Standard.E4.16.256GB"
-    - "VM.Standard.E4.24.384GB"
-    - "VM.Standard.E4.32.512GB"
-    - "VM.Standard.E4.48.768GB"
-    - "VM.Standard.E4.64.1024GB"
+    - "MySQL.VM.Standard.E3.1.8GB"
+    - "MySQL.VM.Standard.E3.1.16GB"
+    - "MySQL.VM.Standard.E3.2.32GB"
+    - "MySQL.VM.Standard.E3.4.64GB"
+    - "MySQL.VM.Standard.E3.8.128GB"
+    - "MySQL.VM.Standard.E3.16.256GB"
+    - "MySQL.VM.Standard.E3.24.384GB"
+    - "MySQL.VM.Standard.E3.32.512GB"
+    - "MySQL.VM.Standard.E3.48.768GB"
+    - "MySQL.VM.Standard.E3.64.1024GB"
+    - "MySQL.VM.Standard.E4.1.8GB"
+    - "MySQL.VM.Standard.E4.1.16GB"
+    - "MySQL.VM.Standard.E4.2.32GB"
+    - "MySQL.VM.Standard.E4.4.64GB"
+    - "MySQL.VM.Standard.E4.8.128GB"
+    - "MySQL.VM.Standard.E4.16.256GB"
+    - "MySQL.VM.Standard.E4.24.384GB"
+    - "MySQL.VM.Standard.E4.32.512GB"
+    - "MySQL.VM.Standard.E4.48.768GB"
+    - "MySQL.VM.Standard.E4.64.1024GB"
     title: "OCI MySQL instance shape"
     description: "Shape of the OCI MySQL intance"
-    default: "VM.Standard.E3.1.8GB"
+    default: "MySQL.VM.Standard.E3.1.8GB"
 
   private_ip_address:
     type: string
@@ -389,7 +386,7 @@ variables:
     title: "Bastion Instance Shape"
     dependsOn:
       compartmentId: compartment_ocid
-    default: "VM.Standard2.1"
+    default: "VM.Standard.E4.Flex"
     required: true
 
   public_edge_node:

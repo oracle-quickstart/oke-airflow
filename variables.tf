@@ -187,7 +187,7 @@ variable "mysql_admin_username" {
 variable "mysql_admin_password" {}
 
 variable "mysql_shape" {
-  default = "VM.Standard.E2.2"
+  default = "MySQL.VM.Standard.E3.1.8GB"
 }
 
 variable "enable_backups" {
