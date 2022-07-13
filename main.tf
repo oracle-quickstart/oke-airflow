@@ -51,11 +51,10 @@ module "oke" {
   cluster_options_admission_controller_options_is_pod_security_policy_enabled = var.cluster_options_admission_controller_options_is_pod_security_policy_enabled
   image_id = data.oci_core_images.oraclelinux7.images.0.id 
   vcn_id = var.useExistingVcn ? var.myVcn : module.network.vcn-id
-  subnet_id = var.useExistingVcn ? var.OKESubnet : local.is_oke_public
+  subnet_id = var.useExistingVcn ? var.OKESubnet : module.network.private-id
   lb_subnet_id = module.network.edge-id
   ssh_public_key = var.use_remote_exec ? tls_private_key.oke_ssh_key.public_key_openssh : var.ssh_provided_public_key
-  cluster_endpoint_config_is_public_ip_enabled = var.cluster_endpoint_config_is_public_ip_enabled
-  endpoint_subnet_id = var.cluster_endpoint_config_is_public_ip_enabled ? module.network.edge-id : module.network.private-id
+  endpoint_subnet_id = var.useExistingVcn ? var.OKESubnet : module.network.private-id
   node_pool_node_shape_config_memory_in_gbs = var.flex_gbs
   node_pool_node_shape_config_ocpus = var.flex_ocpu
   is_flex_shape = contains(["VM.Standard.E3.Flex", "VM.Standard.E4.Flex", "VM.Optimized3.Flex", "VM.Standard.A1.Flex"], var.airflow_node_pool_shape)

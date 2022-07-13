@@ -109,10 +109,6 @@ variable "cluster_options_admission_controller_options_is_pod_security_policy_en
   default = "false"
 }
 
-variable "cluster_endpoint_config_is_public_ip_enabled" {
-  default = "false" 
-}
-
 variable "use_remote_exec" {
   default = "true"
 }

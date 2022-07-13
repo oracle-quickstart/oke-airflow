@@ -29,7 +29,6 @@ groupings:
   - create_new_oke_cluster
   - cluster_name
   - kubernetes_version
-  - cluster_endpoint_config_is_public_ip_enabled
   - OKESubnet
   - existing_oke_cluster_id
 - title: "OKE Airflow Pool Configuration"
@@ -110,13 +109,6 @@ variables:
     visible:
       not:
         - create_new_oke_cluster
-
-  cluster_endpoint_config_is_public_ip_enabled:
-    type: boolean
-    title: "Create Public Endpoint"
-    description: "By default this template will create a secure Kubernetes API endpoint which is on a private subnet accessible only inside the VCN.  By checking this box, you choose to deploy the cluster to a PUBLIC subnet and create a PUBLICLY ACCESSIBLE endpoint.  This will also deploy FSS and OCI-MySQL assets to the same PUBLIC subnet."
-    default: false
-    visible: create_new_oke_cluster
 
   kubernetes_version:
     type: enum

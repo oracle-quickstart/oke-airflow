@@ -54,6 +54,5 @@ data "oci_core_images" "oraclelinux7" {
 
 locals { 
   bastion_subnet = var.public_edge_node ? module.network.edge-id : module.network.private-id
-  is_oke_public = var.cluster_endpoint_config_is_public_ip_enabled ? module.network.edge-id : module.network.private-id
 }
 
