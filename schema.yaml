@@ -121,7 +121,6 @@ variables:
     description: "Choose the version of Kubernetes to deploy"
     required: true
     default: "v1.24.1"
-    visible: create_new_oke_cluster
 
   cluster_name:
     type: string
