@@ -119,7 +119,7 @@ variables:
     title: "Kubernetes Version"
     description: "Choose the version of Kubernetes to deploy"
     required: true
-    default: "v1.24.1"
+    default: "v1.25.4"
 
   cluster_name:
     type: string
