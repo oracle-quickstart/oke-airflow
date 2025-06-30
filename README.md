@@ -124,10 +124,24 @@ You may also want to mount this on the Bastion host for ease of access - by defa
 ## OCI MySQL
 OCI MySQL service is used to store Airflow Metadata.  You can configure elements of the MySQL deployment, most importantly is ensuring the internal IP address is in scope with the OKE cluster subnet should you choose to deploy this to an existing VCN/Subnet topology.
 
-# *Important Note*
+## *Important Note*
 It's very important to note that you *must delete the airflow service* before you attempt to execute a Terraform *DESTROY* either via ORM or CLI.   To do this, login to the bastion host and execute the following command:
 
     kubectl -n airflow delete svc airflow
 
 This will remove the airflow service, and allow for graceful termination of related stack elements upon Terraform destroy.
 
+## Contributing
+
+This project welcomes contributions from the community. Before submitting a pull request, please [review our contribution guide](./CONTRIBUTING.md)
+
+## Security
+
+Please consult the [security guide](./SECURITY.md) for our responsible security vulnerability disclosure process
+
+## License
+
+Copyright (c) 2023 Oracle and/or its affiliates.
+
+Released under the Universal Permissive License v1.0 as shown at
+<https://oss.oracle.com/licenses/upl/>.
